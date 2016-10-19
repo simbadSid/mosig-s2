@@ -1,0 +1,70 @@
+#!ipxe
+
+set timeout		10000
+set defaultItem		defaultImage
+set uforgeDefaultImage	#MARKER_OS_NAME
+
+
+
+
+
+
+menu Please choose one of the options 
+
+item
+item
+item
+item
+item
+item	defaultImage		    Boot on the default UForge image: ${uforgeDefaultImage}
+item
+item	privateSessionImageSpecific Boot on a specific image within your UForge account
+item
+item	privateSession		    Choose among all your images on your UForge account
+item
+item	exit			    Exit to BIOS
+
+
+choose --default ${defaultItem} --timeout ${timeout} target && goto ${target}
+
+
+
+
+
+
+:defaultImage
+set uri #MARKER_TRANSFERT_PROTOCOL://#MARKER_NEXT_SERVER_IP:#MARKER_NEXT_SERVER_PORT/#MARKER_OS_NAME
+echo "----------------------------------"
+echo URI : ${uri}
+echo "----------------------------------"
+
+kernel ${uri}/#MARKER_PATH_KERNEL/#MARKER_FILENAME_KERNEL initrd=#MARKER_FILENAME_FILESYSTEM  repo=${uri}
+initrd ${uri}/#MARKER_PATH_FILESYSTEM/#MARKER_FILENAME_FILESYSTEM
+
+echo Please press on any key (to remove)
+read str
+
+boot
+
+
+
+
+:privateSessionImageSpecific
+set uri http://192.168.0.1/bootstrapScript.privateSessionImageSpecific.ipxe
+chain ${uri}
+
+
+
+:privateSession
+login
+set uri #MARKER_TRANSFERT_PROTOCOL://#MARKER_NEXT_SERVER_IP:#MARKER_NEXT_SERVER_PORT/bootstrapScript.privateSession.ipxe
+echo "----------------------------------"
+echo URI : ${uri}
+echo "----------------------------------"
+echo Please press on any key (to remove)
+read str
+chain ${uri}
+
+
+:exit
+exit

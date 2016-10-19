@@ -1,0 +1,90 @@
+#!/bin/sh
+set -e
+
+
+# either this script must be called as root or the user must be
+# able to use sudo
+if [ "$(whoami)" = root ]; then
+	ROOT=
+else
+	ROOT=sudo
+fi
+
+# Check that we are on amd64 or i386
+case "$(uname -m)" in
+x86_64)
+	ARCH=amd64
+	;;
+i*86)
+	ARCH=i386
+	;;
+*)
+	echo "Wrong architechture $(uname -m). Aborting." 1>&2
+	exit 1
+esac
+
+install_package() {
+	local UPDATE=
+	if [ "$1" = --no-update ]; then
+		UPDATE=": skipping "
+		shift
+	fi
+	#$UPDATE $ROOT apt-get update
+	if dpkg -l "$1" | grep -s '^ii' ; then
+		return 0
+	fi
+	set +x
+	echo "**************************************************************"
+	echo "* Installing the $1 package from your distrib"
+	echo "* $2"
+	echo "**************************************************************"
+	echo "* Refuse the installation (and try to install it yourself    *"
+	echo "* with your usual package manager) if something seems wrong  *"
+	echo "* (packages that need to be removed, to many packages        *"
+	echo "* upgraded, ...)                                             *"
+	echo "**************************************************************"
+	set -x
+	$ROOT apt-get install $1
+}
+
+# choose installation method
+if [ "$(apt-cache -q policy gcc-mipsel-linux-gnu)" == "" ] ; then
+	cat <<EOF
+EOF
+
+else
+	echo "MIPS cross compiler seems available in your distrib. Trying to use it"
+	if ! dpkg --print-foreign-architectures | grep -sq mipsel ; then
+		echo "Adding mipsel as a foreign architecture on your system"
+		$ROOT dpkg --add-architecture mipsel
+	fi
+	if test "$ARCH" = amd64 ; then
+		GCC_VER=$(gcc --version | head -1 | \
+			sed -e 's/.* \([0-9]\+\.[0-9]\+\)\.[0-9]\+\( .*\)\?$/\1/p;d')
+		if [ -z "$GCC_VER" ]; then
+			echo "Cannot find your GCC version. Aborting."
+			exit 1
+		fi
+		if ! dpkg --print-foreign-architectures | grep -sq i386 ; then
+			echo "Adding i386 as a foreign architecture on your system"
+			$ROOT dpkg --add-architecture i386
+		fi
+	fi
+	install_package gcc-mipsel-linux-gnu "Installing the cross-compiler of your distrib. gcc-multiarch and g++-multiarch might be asked to be removed"
+	if test "$ARCH" = amd64 ; then
+		if [ "$(apt-cache -q policy g++-5-multilib)" != "" ] ; then
+			install_package --no-update g++-5-multilib
+		else
+			install_package --no-update libc6-dev:i386 "in order to compile NachOS on amd64 systems"
+			install_package --no-update lib32stdc++-$GCC_VER-dev "in order to compile NachOS on amd64 systems"
+		fi
+	fi
+
+	echo "Ok, you should be able to compile NachOS"
+
+	exit 0
+fi
+
+# never go further: creating a MIPS cross-compiler is not working for now
+exit 0
+

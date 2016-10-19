@@ -1,0 +1,90 @@
+.TH "udpmt" "1" "0.93.beta" "Gilles Berger Sabbatel" "User Manual"
+.SH "NAME"
+.LP 
+udpmt \-  UDP measurement tool, part of the ipmt tools suite
+.SH "SYNTAX"
+.LP 
+udpmt [\fIoptions\fP] <\fIhost\fP>
+.SH "DESCRIPTION"
+.LP 
+Udpmt is the client program which send flows 
+of data to the server program (udptarget) with the UDP protocol.
+.SH "OPTIONS"
+.LP 
+.TP 
+\fB\-p\fR <\fIport\fP>
+Port number to use.  The default is to use the port number 13000.
+.TP 
+\fB\-s\fR <\fIpktsz\fP>
+Size of datagrams to send in bytes.  The default size is 1472 bytes in IPv4,
+and 1452 bytes in IPv6.
+.TP 
+\fB\-d\fR <\fIsecs\fP>
+Test duration in seconds.  By default, the program transmits untils stopped by the user.
+.TP 
+\fB\-n\fR <\fIpktnb\fP>
+Number of packets to send.  By default, the program transmits untils stopped by the user.
+.TP 
+\fB\-i\fR <\fIus\fP>
+average interval between transmissions of packets, in microseconds.  By default the value in 0, which means that packets are transmitted continuously.  This value may be different to the interval timer used for the transmission : packets are scheduled for transmission accordingly to this option.  Actual transmission of scheduled packets is done when the timer triggers (see \-t option).
+.TP 
+\fB\-B\fR <\fIburst\fP>
+burst size, in packets (default = 1).  Specify the number of packets to send in a raw during a transmission interval (option \-i).
+.TP 
+\fB\-b\fR <\fIburst\fP>
+burst size, in bytes (default = 1 packet).  Specify the average number of bytes to send in a raw during a transmission interval (option \-i).  When burstsize is not equal to an integer number of packets, packets are sent until at least burst bytes are sent, and the excedent is deduced from the number of bytes to send during the next interval.  If both \-b and \-B options are specified, packet size is set accordingly.
+.TP 
+\fB\-P\fR <\fIms\fP>
+Instead of stopping after sending -n bytes, waits for this duration and resumes. (Usefull for buffer size estimation)
+.TP
+\fB\-t\fR <\fIus\fP>
+set the value of the interval timer used for transmission, in microsecond (default 500 microseconds).  The maximum allowed value is 1000000 (1 second).
+.TP
+\fB\-r\fR <\fIrate\fP>
+Transmission rate in Kbit/s (where K = 1000).  Burst size in bytes and transmission interval timer are set accordingly.
+.TP
+\fB\-S\fR <\fIport\fP>
+Set the source port.
+.TP 
+\fB\-T\fR <\fItos\fP>
+Set the type of service field sent with every IP packet.  This field may be used by network equipments that care for QoS (like some 802.11 cards and APs).
+.TP 
+\fB\-f\fR <\fItest-file.txt\fP>
+Reads traffic description from test-file.txt. Basically, the file describes sequences of similar packets: [11.1 12 13] sends 12 packets of 13 bytes with gaps of 11.1 ms. Loops are also possible: {10.1 20 [11.1 12 13]} waits 10.1 ms, then repeats 20 times the previous sequence (including the 11.1 ms initial wait). Nested repetitions are possible: {100 200 {10 20 [11 12 13]}} waits 100+10+11ms (this happens only once), then sends 240 packets of 13 bytes with 11 ms intervals, waits 10+11 ms, sends 240 packets of 13 bytes etc. A repetition number of -1 (e.g. {0 -1 [...]}) loops for ever.
+.TP 
+\fB\-4\fR
+Force IPv4 protocol.  The default is tu use IPv6 if supported, else
+fallback to IPv4.
+.TP 
+\fB\-6\fR
+Force IPv6 protocol if supported.  Unlike the default case, the program
+fails if IPv6 is not supported, rather than fallback to IPv4.
+.TP 
+\fB\-c\fR
+Allows to send to a broadcast address.
+.TP
+\fB\-h\fR
+Output help information and exit.
+.TP 
+\fB\-v\fR
+Output version information and exit.
+.SH "EXAMPLES"
+.LP 
+The following command continuously send packets to the port 10000 of host
+"destination.example.com" :
+.LP 
+udpmt \-p 10000 destination.example.com
+.LP 
+The following command sends packets of default size at a rate of 2 Mbit/s :
+.LP 
+udpmt \-p 10000 \-r 2000 destination
+.LP 
+The following command continously send 1000 bytes packets :
+.LP 
+udpmt \-p 10000 \-s 1000 destination
+.SH "AUTHORS"
+.LP 
+Gilles Berger Sabbatel <Gilles.B erger\-Sabbatel@imag.fr>
+.SH "SEE ALSO"
+.LP 
+udptarget(1), tcpmt(1), tcptarget(1)

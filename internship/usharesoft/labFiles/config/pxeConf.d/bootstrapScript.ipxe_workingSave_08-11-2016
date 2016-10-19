@@ -1,0 +1,97 @@
+#!ipxe
+
+
+#prompt -k 0x197e -t 2000 Press F12 to install CentOS...                     ############### || exit 
+
+
+
+echo
+echo
+echo
+echo
+echo "----------------------------------"
+echo interface list:
+ifstat
+echo "----------------------------------"
+
+
+
+
+echo 
+echo 
+echo 
+echo 
+echo "----------------------------------" 
+echo ip list: 
+ipstat
+echo "----------------------------------" 
+
+
+echo Write some thing: 
+read str
+ifclose
+
+
+echo 
+echo 
+echo 
+echo 
+echo "----------------------------------"
+echo interface list after close: 
+ifstat
+echo "----------------------------------" 
+
+
+
+
+
+
+echo
+echo
+echo
+echo "----------------------------------"   
+echo ip list after close:    
+ipstat
+echo "----------------------------------"   
+
+
+
+
+echo Write some thing: 
+read str 
+
+
+set base #MARKER_URI_LOCAL_REPO 
+
+kernel ${base}/#MARKER_PATH_KERNEL/#MARKER_FILENAME_KERNEL initrd=#MARKER_FILENAME_FILESYSTEM repo=${base}
+
+
+echo
+echo
+echo
+echo "----------------------------------"
+echo Write some thing: 
+read str
+echo "You have written: $str" 
+echo "----------------------------------" 
+
+
+
+initrd ${base}/#MARKER_PATH_FILESYSTEM/#MARKER_FILENAME_FILESYSTEM
+
+
+
+
+echo
+echo
+echo
+echo "----------------------------------" 
+echo Write some thing:
+read str
+echo "You have written: $str"
+echo "----------------------------------" 
+
+
+
+
+boot

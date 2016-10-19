@@ -1,0 +1,15 @@
+[root@ensipc230 ~]# tcptarget 
+IPv6 (and IPv4) protocol
+Using port 13000
+    1.000   51499.0
+    2.000   59333.2
+    3.000   38597.9
+    4.000   41748.7
+    5.000   23341.8
+    6.000   31913.9
+    7.000   28253.4
+    8.000   28091.2
+^Cterminate main process
+41380512 bytes received in 8.9064 seconds, bye!
+[root@ensipc230 ~]# 
+

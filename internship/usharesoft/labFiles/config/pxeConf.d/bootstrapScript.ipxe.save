@@ -1,0 +1,41 @@
+#!ipxe
+
+
+#prompt -k 0x197e -t 2000 Press F12 to install CentOS...                     ############### || exit 
+set base http://10.1.2.145/centos7_x86_working 
+
+#login
+#set uri #MARKER_TRANSFERT_PROTOCOL://${username:uristring}:${password:uristring}@#MARKER_NEXT_SERVER_IP:#MARKER_NEXT_SERVER_PORT/ufws/users/root/appliances/4/images/3/pxe/download/#MARKER_OS_NAME/
+
+set uri #MARKER_TRANSFERT_PROTOCOL://riyane:uforgedemo@#MARKER_NEXT_SERVER_IP:#MARKER_NEXT_SERVER_PORT/ufws/users/root/appliances/4/images/3/pxe/download/#MARKER_OS_NAME/
+
+echo
+echo
+echo
+echo "----------------------------------"
+echo URI : ${uri} 
+echo write something
+read str
+echo "You have written: $str" 
+echo "----------------------------------" 
+
+
+kernel ${uri}/#MARKER_PATH_KERNEL/#MARKER_FILENAME_KERNEL initrd=#MARKER_FILENAME_FILESYSTEM repo=${base}
+initrd ${uri}/#MARKER_PATH_FILESYSTEM/#MARKER_FILENAME_FILESYSTEM
+
+echo Write some thing: 
+
+
+echo
+echo
+echo
+echo "----------------------------------" 
+echo Write some thing:
+read str
+echo "You have written: $str"
+echo "----------------------------------" 
+
+
+
+
+boot 

@@ -1,0 +1,16 @@
+
+- Threashold contraint: x > 0 => x >= K
+	x<= My
+	x>= Ky
+	y in {0, 1}
+
+- Disjonctive constraint:   ti + di <= tj if i before j
+                            tj + dj <= ti if j before i
+	ti + di <= tj + M(1 - yij)
+	tj + dj <= ti + M(yij)
+
+- linearize xx' with x, x' in {0, 1} (introduce y = xx')
+	y <= x
+	y <= x'
+	x + x' - 1 <= y
+	y in {0, 1}

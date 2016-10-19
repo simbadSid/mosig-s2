@@ -1,0 +1,137 @@
+
+
+
+
+
+I- intro
+	Most modern operating systems allow applications to run many execution flows concurrently.   This is basicaly what allows you to listen 
+	to music while you send your emails and organize your schedul (and do all this at the same time).
+
+	Theoretically, we could expect that this approach divides the execution time of any task by n, the number of processors or threads 
+	involved.
+	However, as you probably know, this threashold objective is way of the mark.
+
+	Among the parts of an OS that limit the gain of parallelism, the memory allocation is one that is often disregarded but that can have a 
+	deep impact on performance.
+	The objective of this study is to first highlight the designs of an OS that limit the time efficiency of multithreading.
+	Second, we will present to you some memory allocator basis  designed in order to limit this performance issues.
+
+
+
+
+
+
+
+
+
+
+II- Definition of the challenge
+
+	1- Hardware issues
+	- First let's consider the hardware architecture of a processor.
+	 A thread may access a memory zone that it has allocated, which is in his local core.  This can be done verry quickly (about 2 cycles) 
+	 as the address is within its own cache (no matter at which level)
+	 But it can also access a memory managed by an other thread on an other core.  As this architecture is distributed, this memory access 
+	 involves hardware communication protocol, with potential data lost.  And all this is extreamly costly (from 10 to 200 cycles).
+	- In an otherhand, when we try to maintain a memory over such a distributed architecture, we need to ensure some cache coherence which 
+	meens that no data is doubled, and each data is always up to date.  And this envolves communication between the different parts hence 
+	time over cost.
+
+	2- Software issues
+	- The main issue of a memory allocator is that it relays on sequential algorithms.   This means that when different threads try to 
+	allocate memory at the same time, they have to wait for the allocator to answer to each request one by one:   Thus it becomes a botleneck.
+	- But mainly, it creates false sharing.  This happens when two threads share memory within the same cache line.   Accessing this address 
+	will invlove a synchronization (cause the granularity of a cache is a line).  But this synchronization is not necessary (as the two 
+	addresses are totally separated).
+	- It also involves process which are extreamly costly in time such as context switch, memory fragmentation and memory blowup
+
+
+
+
+
+
+
+- Transition challenge definition -> deployed solution
+What you need to understand from all this issues is that this memory allocators are facing verry different efficieny issues: Hardware, and software. And more important, some of this issues are nested:  Even if we could find a specific solution to each one of them, we could not mix all of them within a single implementation.
+
+
+
+
+
+
+
+
+
+
+III- Deployed solution
+1- Global architecture
+	* Free memory buffer maped to each core
+		- Allows a core to allocate memory without any synchronization
+		- Makes the allocation executed in a constant time (as long as the buffer is not empty)
+		- As thisbuffer is allocated as a block, the memory addresses that it will contains will be contigus.   And this is verry 
+		important as it will reduce the probability that a core trigers a page fault.  And even after a context switch, the new thread 
+		will share the same memory space, and thus will have the same low probability to triger a page fault.
+
+	* Free memory pool: shared by all the cores
+		To feed each core local buffer, we have designed a pool of free memory shared by all the cores.
+		Thus accessing this structure is costly in time, as it needs synchronization between all the cores.  And this is a major intrest 
+		of our implementation.   We have designed this data structure as a set of stack using the treiber stack method.  And this allows 
+		a fixed number n of thread to a access it at the same time without any software synchronization.
+
+		- Data structure that allows at most n fixed thread to access without any synchronization.
+		- This means that our n cores will be allowed to access this shared structure without any need to synchronization
+
+		- So to sum up, thanks to our architecture, we can allocate memory in constant time, and keep our memory coherent without any 
+		synchronization.   The only synchronization needed is to swap blocks from a stack to an other (in case one stack gets empty).
+
+
+	So this is the main architecture of our memory allocator.   It is basically a data structure used to store memory blocks of fixed size. We 
+	have shown its main intrests for the efficiency of a memory allocator. Once this design established, we have tied to go further into the 
+	optimization.   And to do so, we have designed a specific structure to each one of this blocks.
+
+	* Span
+		- The allocation and free time is constant no matter what is the size of the object.
+		- The extra memory of a span does not cause fragmentation of physical memory, as it is not used and therefore never swaped to the 
+		ram (because of on-demand paging of the operating system)
+
+
+
+
+
+
+
+IV- Result
+What we have seen until now are the theoretical designs we have considered, and the theoretical adventages of this designs on the performances of the memory allocator.   The third part of our work was to test this theoretical results in concrete cituations.
+
+To do so, we have designed a testing platform designed to run a guiven program using the different allocators that we want to test.
+The this testing platform has many purposes:
+	- The first one is to compare the different allocation strategies within a fair environment (removing all the random and the hadware-
+	dependant characteristics).
+	- An other one is to highlight the impact of the hardware architecture and the kernel allocation policies on the performances of this 
+	allocators.
+
+All this performance results have are described in the report that we handeled, as well as some other trends that we have noticed and tried to explain.
+
+But for now, we have decided to present to you this specific result, obtained on a random processor (AMD_64...) because it highlight 2 important trends that we have noticed on most of our experiments
+	- The first one is that our allocator (here in red) present an average time gain of 20 % compared to the standar library, and 5 to 20% 
+	compared to some other existing implementations such as Hoard or ...   And this for sure is a verry important result for us
+	- The second verry important characteristic to notice is that our implementation is extreemely stable compared to the others (we can 
+	notice on this curves many up and downs), and this is verry intresting for reserach purposes
+
+
+
+
+
+
+
+
+V- Conclusion
+During this research internship
+	- We have designed and explored strategies to build memory allocators in suitable for multithreading purposes
+	- We have shown the time and memory intrest of such designs
+	- We have also shown that our performance are extreamly stable (in oposition to existing implementations which have a high random 
+	facotr). And this is verry important for research purposes (test algo)
+
+ However, this study has considered the memory allocator as an independant part of the OS, which is verry intresting for research purposes.
+In order to make our results usuable for more general purposes, the next step would be to implement our design by considering the existing interactions between the memory allocator and the rest of the OS.   And this would make more intresting for industrial purposes
+	But for now, thanks a lot for your attention, and please feel free to ask all your questions...

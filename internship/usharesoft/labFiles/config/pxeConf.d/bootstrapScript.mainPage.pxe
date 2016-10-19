@@ -1,0 +1,25 @@
+default menu.c32
+prompt 0
+timeout 300
+ONTIMEOUT local
+
+
+menu title ########## PXE Boot Menu ##########
+
+label 1
+menu label ^1) Install #MARKER_OS_NAME with Local Repo
+kernel #MARKER_OS_NAME/#MARKER_PATH_KERNEL/#MARKER_FILENAME_KERNEL
+append initrd=#MARKER_OS_NAME/#MARKER_PATH_FILESYSTEM/#MARKER_FILENAME_FILESYSTEM devfs=nomount method=#MARKER_TRANSFERT_PROTOCOL://#MARKER_NEXT_SERVER_IP:#MARKER_NEXT_SERVER_PORT/#MARKER_OS_NAME
+
+label 2
+menu label ^2) Not working yet: Install CentOS 7 x64 with http://mirror.centos.org Repo
+kernel centos7/vmlinuz
+append initrd=centos7/initrd.img method=http://mirror.centos.org/centos/7/os/x86_64/ devfs=nomount ip=dhcp
+
+label 3
+menu label ^3) Not working yet: Install CentOS 7 x64 with Local Repo using VNC
+kernel centos7/vmlinuz
+append  initrd=centos7/initrd.img method=ftp://192.168.1.20/pub devfs=nomount inst.vnc inst.vncpassword=password
+
+label 4
+menu label ^4) Not working yet: Boot from local drive

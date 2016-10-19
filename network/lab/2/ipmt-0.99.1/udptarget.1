@@ -1,0 +1,114 @@
+.TH "udptarget" "1" "0.93.beta" "Gilles Berger Sabbatel" "User Manual"
+.SH "NAME"
+.LP 
+udptarget \-  UDP measurement tool, part of the ipmt tools suite
+.SH "SYNTAX"
+.LP 
+udptarget [\fIoptions\fP]
+.SH "DESCRIPTION"
+.LP 
+Udptarget is a server program which receives flows 
+of data from the client program (udpmt) with the UDP protocol, and 
+periodicaly displays statistics about the received data.
+.SH "OPTIONS"
+.LP 
+.TP 
+\fB\-p\fR <\fIport\fP>
+Port number to use.  By default, port number 13000 is used.  If the specified port
+number is 0, a random port is allocated by the program
+and displayed.
+.TP 
+\fB\-d\fR
+Display delay for every received packet.  The delay is actually the difference
+between the transmission timestamp and the reception time, so it is not
+accurate, unless the clocks of sender and destination are accurately
+synchronized.  The reception time is determined by the kernel upon reception
+of the packet, unless the system does not support this feature, or the -a
+option is used.  The -d option should only be used if a very low packet rate 
+is selected for the transmission!
+.TP 
+\fB\-b\fR
+Estimate bottleneck buffer size. Needs -n -P -s -r options on sender side: we measure how long it takes to overflow the buffer knowing the rate at which we send packets into it and the rate at which it empties.
+.TP
+\fB\-e\fR
+Display an estimation of the transmission speed, based on the interval beetween the reception of two consecutive packets in a burst.  This require that
+packets are sent in bursts (see -B option of udpmt).  The accuracy of
+the estimation may vary, depending on the accuracy of the system timings (see
+-a option), and network conditions.
+.TP
+\fB\-a\fR
+Instruct the program to determine the arrival time of packets at the
+application level rather than using timestamps determined by the kernel
+upon reception of packets.  Kernel timestamps are more accurate, but
+application-level timestamps
+may be prefered if the user intend to measure the application
+to application behaviour.  Some systems do not support kernel timestamps,
+and fallback to application-level timestamps.  These timestamps are used for
+transmission speed estimation (-e option), histograms of interrarival delays
+(-H option), jitter calculation (-j option), delays calculation (-d option).
+.TP 
+\fB\-i\fR <\fIms\fP>
+Interval in milliseconds between statistics display (default : 1 sec).
+.TP 
+\fB\-j\fR
+Display delay variation (in ms).  Four values are displayed for each period :
+absolute delay variation, ie the difference between the largest and the
+smallest delays since the beginning of the program; relative delay variation, ie
+the difference between the largest and the smallest delays since the previous
+display; minimum delay since the previous display; maximum delay since the
+previous display.  As with \-d option, delays are not accurate, and for long
+experimentations, absolute delay variation is influenced by the relative
+variation of the clocks.  
+.TP 
+\fB\-k\fR
+Keep running after the sender stops.  The default beahvior is that udptarget
+stops when it receives a magic packet sent by the client.
+.TP 
+\fB\-H\fR
+Displays an histogram of the interarrival times of packets.
+.TP 
+\fB\-m\fR <\fIus\fP>
+Minimum value of interval considered for the histogram, in microseconds.
+Smaller values are ignored.  Default is 10 microseconds.
+.TP 
+\fB\-M\fR <\fIus\fP>
+Maximum value of interval considered for the histogram, in microseconds. 
+Larger values are ignored.  Default is 500 microseconds.
+.TP 
+\fB\-r\fR <\fIus\fP>
+Resolution of the histogram, in microseconds, ie width of the bins.  Default is 
+1 microsecond.
+.TP 
+\fB\-o\fR <\fIfilename\fP>
+Write the result to filename.  The default behavior is to display the result
+on the standard output.  When the result is sent to a file, a trace is
+also displayed on the terminal.
+.TP 
+\fB\-q\fR
+Quiet mode. Udptarget does not complain about out of sequence packets.
+.TP 
+\fB\-t\fR <\fIc\fP>
+Timestamp display format.  Timestamp is displayed in seconds with 3
+decimals, with an origin specified by the character c : e for relative to the
+epoch (1/1/1970), d for relative to the current day, 0 for relative to the beginning of the program (default).
+.TP 
+\fB\-4\fR
+Force the IPv4 protocol.  The default is tu use IPv6 if supported, else
+fallback to IPv4.
+.TP 
+\fB\-6\fR
+Force the IPv6 protocol if supported by the host.  Unlike the default
+case, the program fails if IPv6 is not supported, rather than fallback
+to IPv4.
+.TP 
+\fB\-h\fR
+Output help information and exit.
+.TP 
+\fB\-v\fR
+Output version information and exit.
+.SH "AUTHORS"
+.LP 
+Gilles Berger Sabbatel <Gilles.Berger\-Sabbatel@imag.fr>
+.SH "SEE ALSO"
+.LP 
+udpmt(1), tcpmt(1), tcptarget(1)

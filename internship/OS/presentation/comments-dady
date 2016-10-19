@@ -1,0 +1,34 @@
+Remarque concernant le fichier <slides>
+
+- La numérotation des pages doit être clairement visible 
+
+Page 01
+- Supprimer le point à la fin du titre
+- Ecrire les deux noms de la même manière (l'un est en italique)
+- Ajouter de l'espace entre les deux noms
+
+Page 05
+- Titre fig2. threads au pluriel 
+
+Page 08
+- "Low page-fault probability" (ajouter un tiret du 6)
+
+Page 09
+- "N concurrent threads" (N en majuscule + italique)
+
+Page 10
+- "large and small" au lieu de "big and small"
+
+Page 12
+- Each thread (singulier) donc "runs" avec un "s"
+- "Why focus" au lieu de "Why to focus"
+- "Highgly-random processes" au lieu de "Highgly random processes"
+
+Page 13
+- Ajouter de l'espace entre les deux points principaux
+- "we have :"
+- "an allocator with :"
+- "highlighted existing designs ... the performance ..."
+- L'adjectif "interesting" n'est pas approprié pour "gain".
+
+ 

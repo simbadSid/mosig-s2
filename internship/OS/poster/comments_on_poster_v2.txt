@@ -1,0 +1,117 @@
+
+
+
+
+----------------------------------------------------
+ Riyan's annotations
+----------------------------------------------------
+-> Don't try to make your work look bigger than it is: "Our objective
+is to propose operating system designs to suite the multithreading
+paradigm". Even for a phd thesis, that would sound very ambitious,
+imagine for a 1-month master internship :). Again, state your goals as
+simply as possible.
+
+-> The objective of this sentence it to say that we will create this design.  It is
+ to show that at the end of this study, we will indicate which one is
+  better than the other (without saying that we created it).
+  
+  What do you think of this one:
+  "Our objective is to compare operating system designs within a multithreaded environment."
+
+
+----------------------------------------------------
+ End of Riyan's annotations
+----------------------------------------------------
+
+
+
+General comments on the presentation
+
+* The simpler the better!!
+-> "Most modern operating systems allow hosted applications to run
+many execution flows concurrently. However, the environment they
+provide is not suitable to optimize the efficiency of such
+applications."
+First, this is a way too complex sentence. Second, you
+should avoid (long) sentences in a poster.
+
+
+
+
+-> Try to go directly to your point, with the simplest sentences
+   possible
+
+
+
+
+Detailed comments about the content of the poster
+
+* There is no need for an "Introduction" part in a poster. Let's
+  simply call it "Context"
+
+* Most of the thinks you wrote as "Objectives" actually belong to the
+  context. That's probably why you had trouble writing the
+  introduction.
+
+* Exercice: Try to write the objective of your one month internship in
+  a single sentence (and not a 20-line sentence ;) ). I don't think
+  you need more than that as objective.
+
+
+
+
+
+
+------------------------------------------------------------------------------
+* Regarding the context, here are a few suggestions:
+  + Complex Multi-core processors (here you could add a figure to
+  illustrate with several cores, levels of cache, and numa nodes)
+    - A large number of cores
+    - A deep memory hierarchy
+    - Running multi-threaded applications is a challenge
+  + Concurrent data structure
+    - When a data structure is accessed concurently by many threads,
+      it can become a bottleneck
+    - Highly optimized thread synchronization algorithms have been
+      designed
+    - Ex: Several highly concurrent queues (\cite)
+
+
+
+------------------------------------------------------------------------------
+* Then you could have a section called "Problem" (or another
+  equivalent name)
+  + Memory allocation can also impact multi-threaded application
+  performance
+    - The allocator is shared between all threads (contention)
+    - The allocator should avoid false sharing (use figure)
+    - The allocator should favor locality (use figure)
+  + Memory allocation for multicore systems is a hot topic (\cite)
+  => Most evaluations of highly concurrent queues assume a perfect
+  memory allocator
+
+* Based on that, I let imagine the objectives ...
+
+
+
+
+
+
+------------------------------------------------------------------------------
+
+* Regarding the rest of the content, I don't really agree with the way
+  of presenting. Here it looks like you are designing a new memory
+  allocator. Make it clear that you are reviewing existing
+  allocators. You can call this part "Existing memory allocators" or
+  something like that.
+  + Here I don't think you need to go that much into the details as
+  you did with figure 4 for instance.
+
+* One more comment about the references. Try to be precise there
+  too. Don't cite phd thesis except if you don't have any other
+  choice. It's better to cite a paper. (When you cite something, you
+  are supposed to have read it into details, i'm almost sure you
+  didn't read the phd thesis ;) ). Also, be careful with the order of
+  the authors -- this is extremely important -- I'm sure that on all
+  our papers D Petrovic was the first author.
+  

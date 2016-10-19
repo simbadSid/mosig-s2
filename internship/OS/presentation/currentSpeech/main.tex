@@ -1,0 +1,213 @@
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[10pt]{article}											% font size
+
+% Use a custom style sheet: double column, police, text...
+\usepackage{subfig}
+\usepackage{graphicx}													% to include images
+\usepackage{float}														% to float figures
+\usepackage{booktabs,makecell}											% for diagonal cells
+\usepackage{hyperref}													% for hyperlinks
+\usepackage{listings}													% for including files
+%\usepackage[top=1in, bottom=1in, left=1.25in, right=1.25in]{geometry}	% set margins
+\usepackage[top=0.75in, bottom=0.70in, left=0.70in, right=0.70in]{geometry}	% set margins
+\usepackage[utf8]{inputenc}												% for unicode input characters
+\usepackage{helvet}														% use helvetica per default
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{multicol}													% To make the document with many columns
+
+\setlength{\columnsep}{1cm}
+\renewcommand{\familydefault}{\sfdefault}								% use sans serif per default
+
+\lstset
+{
+  basicstyle=\scriptsize\sffamily,%
+  commentstyle=\footnotesize\ttfamily,%
+  frameround=trBL,
+  frame=single,
+  breaklines=true,
+  showstringspaces=false,
+  numbers=left,
+  numberstyle=\tiny,
+  numbersep=10pt,
+  keywordstyle=\bf
+}
+
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION 
+%----------------------------------------------------------------------------------------
+
+\makeatletter
+\makeatother
+\renewcommand{\familydefault}{\sfdefault} % use sans serif per default
+\makeatother
+
+\begin{document}
+
+\title{Impact of memory allocation on the performance of a delegation synchronization algorithm}
+\author{Written by Riyane SID-LAKHDAR (M1 MoSIG)\\
+Supervised by Thomas ROPARS (LIG, team ERODS)}
+\maketitle
+
+
+
+
+\tableofcontents
+\newpage
+
+
+
+
+%------------------------------------------------------------------------
+%	INTRO / MOTIVATION
+%------------------------------------------------------------------------
+
+
+\section{Intro / Motivation}
+\subsection{Mem alloc = botleneck for multithreading}
+		Most modern operating systems allow applications to run many execution flows concurrently.   This is basicaly what allows you to listen to music while you send your emails and organize your schedul (and do all this at the same time).\\
+
+		Theoretically, we could expect that this approach divides the execution time of any task by n, the number of processors or threads involved.
+		However, as you probably know, this threashold objective is way of the mark.\\
+
+		The main problem face by multithreading comes from the complexity of the processor architecture:   The processor communication may involve some on-ship networking.   Thus, a memory access time may be multiplied by a factor up to 100.
+
+		Among the parts of an OS that limit the gain of parallelism, the memory allocation is one that is often disregarded but that can have a deep impact on performance.
+
+
+%----------------------------------------------------------------------------------------
+
+\subsection{Delegation algo}
+		In this context, delegation is an example of multithreaded algorithms that may be impacted by the used allocation.
+		Basically, delegation represents an approach to implement mutual exclusion.   Let consider a set of threads that try concurrently to access a given critical section.   
+        The basic approach consists in synchronizing the threads to let them access the cs sequentially.   Using the delegation approach, the execution of the CS will be delegated to a central thread (or a server thread).   This thread will execute the CS instead of the others.
+        Such an approach has allowed to implement the most efficient known queue for multithreading.   And Different algorithms have been designed based on this approach.  But the problem is that in literature, most of the studies that evaluate and asses this algorithm do not consider the impact of memory allocation on the performance that they measure.
+
+
+%----------------------------------------------------------------------------------------
+
+\subsection{Objective}
+		Thus, in our study, we show the impact of the used allocation strategy on two custom delegation algorithms.
+		Our objective is, (silence...) starting from a property which has already been stated about this algorithm. We want to prove that memory allocation may influence or even infirm such a known propert of multithreaded algorithms.
+
+
+%----------------------------------------------------------------------------------------
+
+\subsection{Presenting the outline:}
+		To do so, we will present in a first part the main principle of the delegation approach. We also show the specification of the two custom algorithms that we consider.\\
+      
+		In a second part, we focus on the memory allocation principle:  we give an overview of the challenges of memory allocation, and a of the most efficient proposed solutions.
+		Basically we show how the complexity of memory allocation makes us wonder how it could affect any multthreaded algorithm, and specifically the delegation ones that we consider.
+
+		In a final step, we present the evaluation that we made in order to compare and to choose the most efficient allocator for our workbench.   We also present our experiments which show how the usage of the best chosen allocator infirms some of the previously stated properties about the delegation algorithms 
+
+
+
+
+
+
+\newpage
+%------------------------------------------------------------------------
+%	DELEGATION
+%------------------------------------------------------------------------
+
+\section{Formal definition of the delegation algos}
+\subsection{Dlegation approach}
+One of the main performance advantage of the delegation approach is the cache locality.   Let me explain.  As the critical section is executed by the same thread, the data used for this cs stay in the same cache.   Thus it dramatically reduces the number of cache misses, and of Remote Memory References, which, as we saw, are extremely costly.
+
+
+%------------------------------------------------------------------------
+
+\subsection{The benchmark algorithm: combiner}
+One of the most efficient state of the art algorithm that uses this approach is known as the combiner.   The basis of this algorithm is that no dedicated thread is used to execute the critical section.   When different threads try to access it, one of them is elected to execute its own CS as well as the one of a given number of others.
+
+
+%------------------------------------------------------------------------
+
+\subsection{Proposed optimization of the delegation algo}
+To the delegation principle, two optimizations attempts have been proposed.   Basically, this second algo tries to improve the communication between the server and the clients.
+
+The first one consists in using a non temporal memory access to write the server answers.   Thanks to this "streaming store", the server does not need to wait for his answer to be available for the client.
+
+The second improvement of the algorithm consists ************
+
+
+
+
+%------------------------------------------------------------------------
+
+\subsection{Limits of the evaluation of the improvements}
+An experimental evaluation of this two algorithms has been conducted in former researches.   It considered some ubiquitous shared objects (stack, queues, ...) submited to contention.   This study showed that the backoff and streaming optimization allows this shared objects to outperform compared to the combiner algorithm.   However, this study has been lead using an unrealistic memory allocator.   It's basically an allocator that uses a block of free memory mapped to each thread to allocate memory.   More details about the principles of this allocator may be found in the paper that we handout.   But for now, the important point is that such an allocator
+	\begin{itemize}
+		\item Outperforms within the specific environment of the test
+        \item But, and this is the problem,  it can definitely not be used as a general purpose one (manly because it can not scale to a large number of threads).
+	\end{itemize}
+   Knowing the complexity and the challenges faced by a memory allocator, we could wonder how the use of a general purpose allocator could change the former experimental results. 
+And this is the point of our next section: 
+
+So in this second section, let focus on the challenges faced by any general purpose allocator
+
+
+
+
+
+
+
+\newpage
+%------------------------------------------------------------------------
+%	ALLOCATION CHALLENGE AND SOLUTIONS
+%------------------------------------------------------------------------
+
+\section{Allocation challenge and proposed solutions}
+\subsection{Alloctor = bottleneck for multithreading}
+	The main issue of a memory allocator is that it relays on sequential algorithms.   This means that when different threads try to allocate memory concurrently, they have to wait for the allocator to answer to each request one by one:   Thus it becomes a botleneck.
+
+\subsection{How to lighten the contention: core local buffer}
+
+
+
+
+\subsection{False sharing}
+Let consider .........
+The main problem is that at each local modification, the modification needs to be transmited to all the foreign caches, involving costly remote references.   And this overhead is totally idle, as the addresses used by the different threads are independent.
+
+So a way to face this challenge is the usage of a virtual span.   A virtual span is a block of fixed size of free memory.   Different ranges of sizes exists.   But the interesting part is that all this sizes are multiples of a cache line size.   Which means that at any time, no two different objects will share the same cache line.   And this will collapse the impact of false sharing.
+
+An other very interesting advantage of the virtual span is that no matter the size of object asked by the user, all the request will be satisfied using the same block of memory (virtual span).    Which makes the allocation time constant, and simplifies the data structures used to manage this blocks.
+
+At this point, you may think that a lot of extra memory may be used for small objects.   And you're right.   But, by simply aligning this extra memory to a page size, it will be stored into independent virtual pages.   Hence swapped out of the RAM by the virtual page system.   As the user never call this addresses, they will trigger no page fault.
+So to sum up all the extra memory used will have no space imoact and no time impact.
+
+\newpage
+%------------------------------------------------------------------------
+%	RESULTS
+%------------------------------------------------------------------------
+
+\section{Results}
+\subsection{Testing environment}
+Basically all this rules have been designed in order to test the allocators and the delegation algorithms without the inference of other parameter which are out of the scope of our study.   For example we pin each thread on an independent core in order to get ride of the overhead linked to scheduling.
+
+What we present next is the throughput reached by a shared queue (a Michael Scott queue), using two different hardware architecture: namely ....
+\subsection{Choosing the best allocator}
+\subsection{Evaluation of the delegation algo}
+
+\newpage
+%------------------------------------------------------------------------
+%	RESULTS
+%------------------------------------------------------------------------
+
+\section{Conclusion}
+During this study, we have shown that using the best state of the art allocator, the behaviour of a multithreaded algorithm may be opposed to the theoretical or expected behaviour.
+Which means that from now on, the dynamic memory allocation needs to be considered as an influente parameter when ever you design or assess any data-structures that may be concurrently shared by threads.
+
+So our study has shown experimentally the impact of the chosen memory allocator on a custom delegation algorithm.   To validate this result and go deeper in this field, we could wonder which design of the choosen allocator is responsible of this behaviour.   What is the influence of the hardware architecture: For example how the hardware of the kernel allocation policies influence the algorithms that we have tested.
+
+But for now ...
+
+
+
+\end{document}

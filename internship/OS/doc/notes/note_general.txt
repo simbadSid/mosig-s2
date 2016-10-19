@@ -1,0 +1,25 @@
+Etat de l'art:
+
+	- Context
+	- Idee generale
+	- Resultat
+	
+	
+	
+Rapport
+	- Context generale
+	- Etat de l'art (A ecrire avant d'arriver en mai) 1/4 du raport
+	- Resultat des experimentations.
+	
+	
+	
+Context des tests:
+	- 1 application
+	- Pas plus de thread que de coeurs
+	- Chaque thread tourne toujours sur le meme coeur
+
+Interet du context:
+	- Eviter les couts de synchronisation du meme thread sur differents coeurs
+	- Eviter de demander un access a une memoire detenu par le thread courent mais qui serait stocke sur un cache distant.
+
+

@@ -1,0 +1,99 @@
+
+
+
+-> page 37 (excluded)
+
+
+- As you may have already notice, today, we are going to talk to you about autonomic computing.
+- As computer scientist, you have probably all already heard about autonomic computing.   However, because of the marketing guys, this term has started to hold many diffrent expectations and definitions.
+
+Thus, before we present to you any major breakthrough in this field, we will first give you a global definition of AUTONOMIC COMPUTING.   We will try to understand what is this field and why did it become a necessity in the early 20th regarding to the evolutions and to the perspectives of computer science.
+
+In a second time, we will present to you some of the most known architecture used in autonomic computing.  And this will help us understanding the challenges of autonomic computing.
+
+
+
+
+- Changing the computer science paradigme:
+	- From solving unicase problems, or optimizing existing solutions (smaller, faster, cheaper)
+	- To building machines to solve future problems independantly fron the problem to solve
+
+- This new paradigm is totally independant from machine learning (considered by IBM as belonging to the old paradigm):
+	- We are not trying to make systems learn from previous experience, or make them change them reaction according to previous states.
+
+
+All this is about dealing with the highly increasing need of hardware and software resources:
+	The problem is that when a system needs more resources
+
+Let's take an example:   Suppose that you want to run a program on your machine, and that this program requires more resources than 
+	what is available on your machime (it needs more memory or more cpu).   As your mchine can hardly exend its hardware resouces,
+	(at least dynamically), this runing program will simply crash.
+
+
+
+- A 1st approach to deal with tis problem would be to simply buy a new computer with more capacity.   Even if we don't consider the economical issue, this solution is extremely limited as the hardware is limited (we all know the Moore's law which basicaly limits the hardware capacity of a system for each generation).
+
+
+
+
+- A 2nd solution would be to consider this problem as a simple hardware or system problem.  We could think that a solution would be to design systems which can dynamically increase them resources, by adding disks or cpus.   But IBM has understood for the bigining that this vision is wrong.   To understand it let simply consider this schem.  This schem represents the interaction between a given software and some hardware components where it is executed.  For example we can see a data base or other.   And for sure we can see all the huge number of dependencies between them.
+
+- The only way to describe this schem is chaos.   And we can guess how hard it would be to add or remove any component with respect to all the dependencies and the link properties
+
+
+- Thus, in this context, IBM has proposed in 2001 the principle of autonomic computing.
+It defined it as an environment of distributed systems designed to host running software.   This software would seek for resource without considering the issues of providing them.3
+
+
+
+
+
+
+- This definition is obviously not a solution to the previous problem.   However, it gives the basis or the main properties of a potential solution
+	* Runing software are not a ware of them host env.   They are not aware of the complexity of the task that they ask for, or the exceptions that it may trigger.
+	* The system needs to be self configuring.  It need to addapt it self to the software it is hosting or to the type of task it is asked.
+	* Self optimizing
+	* Self protecting
+	* Self healing
+
+
+
+- 1st property is :   ........  And this is defnitely ispired from biological observation.
+As human beeings, we all need some resources or task from our body, biting heart, hormonal distribution.  We also need to influence this properties according to the task that we execute: runing, sleeping, thinking.   And the important is that all this is done without any consience.
+
+- A hosted system may ask some resource such as memory or network management, or may intrasincly need them such as scheduling.   But it get rides of them management.   It does not need to know the environment where it is hosted.
+
+
+
+- 2nd, the system needs to be aware of it self in order to constantly addapt its self to the task required by the hosted software, and to the hardware evolution of the system.
+
+
+
+
+
+Different Vision of autonomic computing:
+	- Recovery computing computing:
+		* Don’t try to ensure 99.9999% up time for each component
+		* Accept that faults are always going to happen; cope with them at system level
+		* Micro-rebooting – minimize downtime by designing systems to be quickly rebootable at multiple levels
+		* If it’s fast enough, occasional mistaken reboots are ok
+	- Organic and bio-inspired computing
+		* Use insights from biological systems to understand and exploit collective behavior
+		* 
+		
+		
+		
+
+
+- Conclusion
+All what you have seen are a set of principles and technologies which are today involved in our every day life.   They represent for example the founding basis of some cluster architecture, or cloud architectures.   However, this conclusions did not appear from a day to an other.   They resulte from a long process of researches accross the world.    All this conclusions have been gathered about 5 years after IBM has first introduced the idea of autonomic computing.
+
+
+IBM, which is considered as the founder of autonomic computing has impulsed and managed all this research world wilds.   It has conducted many conferences among universities all over the world.   It has also finance research programs and awards to catch the intrest of computer scientist all over the world.
+
+This policy has leaded to the productions of over half a milion scientific papers on this topic.
+Thanks to all this researchs, IBM has identified the main trends and visions proposed by the reaserchers.     Which leaded the company after 4 years to propose the two main visions of autonomic comouting, which are the "bio-inspired" and "recovery computing"
+
+
+
+

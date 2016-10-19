@@ -1,0 +1,19 @@
+
+
+Objective:
+	- Test the reaction of a custom PXE server when using a Uforge ISO image
+
+
+Step:
+	- Create a VM with centOS which will be the PXE server
+	- Deploy the VM within the usharesoft internal vcenter
+	- Install the necessary features on the VM to be a PXE server (DHCP tftp, ...)
+	- Create a new network to test the DHCP server
+
+
+
+Login to uforge:
+	- Is there a key per Uforge client
+	- Why need the secret key for cyphering a message (should be used for deciphering)
+	- Where to get public/private key?
+	- How to dynamically get a key knowing the client login ans password

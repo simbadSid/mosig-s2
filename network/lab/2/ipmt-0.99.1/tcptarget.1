@@ -1,0 +1,61 @@
+.TH "tcptarget" "1" "0.96" "Gilles Berger Sabbatel" "User Manual"
+.SH "NAME"
+.LP 
+tcptarget \-  TCP measurement tool, part of the ipmt tools suite
+.SH "SYNTAX"
+.LP 
+tcptarget [\fIoptions\fP]
+.SH "DESCRIPTION"
+.LP 
+Tcptarget is a server program which receives flows 
+of data from the client program (tcpmt) with the TCP protocol, and 
+periodicaly displays statistics about the received data.
+.SH "OPTIONS"
+.LP 
+.TP 
+\fB\-p\fR <\fIport\fP>
+Port number to use.  By default, port number 13000 is used.  If the specified port
+number is 0, a random port is allocated by the program
+and displayed.
+.TP 
+\fB\-i\fR <\fIms\fP>
+Interval in milliseconds between statistics display (default : 1 sec).
+.TP 
+\fB\-P\fR
+make the server persistent (suppresses reporting).
+.TP 
+\fB\-o\fR <\fIfilename\fP>
+Write the result to filename.  The default behavior is to display the result
+on the standard output.  When the result is sent to a file, a trace is
+also displayed on the terminal.
+.TP
+\fB\-A\fR <\fIhost\fP>
+The connection to the host is initiated by the trafic target (destination)
+instead of the source (tcpmt).  In this case, tcpmt must be used with the
+passive option (-P).
+.TP 
+\fB\-t\fR <\fIc\fP>
+Timestamp display format.  Timestamp is displayed in seconds with 3
+decimals, with an origin specified by the character c : e for relative to the
+epoch (1/1/1970), d for relative to the current day, 0 for relative to the beginning of the program (default).
+.TP 
+\fB\-4\fR
+Force the IPv4 protocol.  The default is tu use IPv6 if supported, else
+fallback to IPv4.
+.TP 
+\fB\-6\fR
+Force the IPv6 protocol if supported by the host.  Unlike the default
+case, the program fails if IPv6 is not supported, rather than fallback
+to IPv4.
+.TP 
+\fB\-h\fR
+Output help information and exit.
+.TP 
+\fB\-v\fR
+Output version information and exit.
+.SH "AUTHORS"
+.LP 
+Gilles Berger Sabbatel <Gilles.Berger\-Sabbatel@imag.fr>
+.SH "SEE ALSO"
+.LP 
+udpmt(1), tcpmt(1), udptarget(1)

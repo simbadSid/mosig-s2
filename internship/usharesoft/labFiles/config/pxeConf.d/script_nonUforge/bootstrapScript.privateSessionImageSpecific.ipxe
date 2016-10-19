@@ -1,0 +1,35 @@
+#!ipxe
+
+
+
+
+
+login
+echo Please select the identifier of the UForge appliance that you expect
+read aid
+echo Please select the identifier of the UForge image that you expect
+read iid
+
+
+set uri #MARKER_TRANSFERT_PROTOCOL://${username:uristring}:${password:uristring}@#MARKER_NEXT_SERVER_IP:#MARKER_NEXT_SERVER_PORT
+
+echo
+echo
+echo
+echo "----------------------------------"
+echo "This feature can only work with the UForge webservice: ApplianceDownloadResource.java"
+echo User            : ${username}
+echo UForge image id : ${iid}
+echo URI (to remove) : ${uri}
+echo "----------------------------------"
+echo Please press on any key
+read str
+
+kernel ${uri}/images/pxeboot/vmlinuz initrd=initrd.img repo=${uri}
+initrd ${uri}/images/pxeboot/initrd.img
+
+echo Please press on any key
+read str
+
+
+boot

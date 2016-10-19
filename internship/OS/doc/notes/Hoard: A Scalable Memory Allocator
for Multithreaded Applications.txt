@@ -1,0 +1,41 @@
+
+
+
+
+
+
+
+- Result: hoard: concurrent allocator
+
+- Goal: Handle each of the following performance obstacle:
+	1- False sharing (of cache lines)
+	2- Memory consumption (for management tasks)
+	3- Scalability: aim to the property:  Performance_on(n processor) = Performance_on(1 processor) / n
+	4- Low fragmentation
+
+- Method (mapped with the previous methodes):
+
+
+- Design of hoard :
+
+
+
+- Results: (On 11 programs run on 14 processor)
+	Improves the solaris efficiency by a factor 60
+	Improves the best known allocator efficiency by a factor 18
+
+
+
+- Questions:
+
+
+
+- Definitions:
+	* Blowup: kind of memory fragmentation: is the increase in memory consumption caused when a concurrent allocator
+	 reclaims memory freed by the program but fails to use it to satisfy future memory requests
+
+	* False sharing: occurs when multiple processorsshare words in the same cache line without actually sharing data
+
+
+- Used references
+

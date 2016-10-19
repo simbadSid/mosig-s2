@@ -1,0 +1,96 @@
+
+
+
+
+- Enlever le bandeau
+- Enlever les truc en bas (fleches ...)
+
+
+- Photo du processor: Commenter la photo en insistant sur les chiffres
+
+- Page 4: Dire: it dicreases the number of cache miss (en 1 phrase)
+
+	
+- Page 6: aller plus vite sur le discrour
+
+
+
+
+- Corriger le text de optimized version
+
+
+- Idee principale: "partitionner" les structure en 1 partition par core
+	Utiliser le mot partitionner dans le discour
+
+
+
+- Page 16: each modification needs a retransmition of the cache line between the remote cache
+	- mettre les fleches dans les 2 sens
+
+- Page 17: Ne pas discuter le dernier point (enlever des slides)
+
+
+
+- Page 20: appuyer le fait que ptmalloc est l'allocateur standard de la lib C
+	- Corriger le text du garbage collector : ne pas trop s'avancer
+
+
+- Page 22:  dire que le rouge c'est fake allocart...
+		dire que que les points c'est combiner ...
+
+
+
+- On a tester un ensemble d'allocator representatif de l'etat de l'art et des design qu'on a presente (ajouter un slide pour les lister)
+- Faire apparaitre le nobre de coeur sur les processeurs (sur les slides et dans le speech)
+- Peut etre avec columns
+
+
+- Etre plus direct dans la presentation
+- Example de slide ou aller plus vite: 2 (motivation), 
+- Simplifier chaque phrase pour simplifier le discour: Reflechire a la premiere phrase que je dis pour chaque point de chaque slide.
+- Me presentaer dans le slide1 : mon nom, mon parcour, mon stage au sein de l'equipe errods avec Thomas Ropars
+
+
+
+-----------------------------------------------------------------
+
+
+
+
+
+- Simplifier le slide sur virtual span:
+	- Simplifier le text
+
+
+- False sharing: remplacer les "access sequenciel" par le pb de bound sink: le pb est que l'info doit bouger d'un cache a un autre ce qui est couteux: remplacer les fleches sur le shema
+
+
+
+
+
+- Decrire ce qu'on voi sur les graphe: dire explicitement: on calcule le throughput 
+	- Detailler les optimization de tc malloc:  dire "J'ai pas le temps de expliquer tous les allocateur.  Mais juste tcmalloc fait ca et ca..."
+
+
+
+
+- Corriger la figure comparaison des algo:
+	- Redecrire comme precedament: on montre le throughput par number de coeur
+	- Dire explicitement que le tc est de couleur(...) et le custom de couleur (...)
+	- utiliser des points pour cc et des + pour mp
+	- Utiliser des couleur fluo pour les allocatuers
+
+
+
+- Conclusion: rappeler le but: objectif = voir l'impact des alloc sur des algo de synchroni: tres rapide: objectif + resultat + ouverture
+	- On a montrer que en utilisant les meilleur alloc de l'etat de l'art,
+	- Donner un seul point important dans la conclusion, au lieu de re resume tout
+	- Faire une ouverture forte: example comprendre pk avec tcmalloc les resultat sont inverse: maintenant que on a vu qu'il existait un impact, on peut essayer de comprendre plus precisement pk.  Ya t il des truc specific a tcmalloc
+	- Ouverture example 2: si on avait utiliser une autre structure que la queue (conteur, ...)
+	- Ouverture example 3: si on changeait le workload et de faire tout les enqueue puis tous les dequeue
+
+- Penser a un slide finale.   Eventuellement mettre le slide initiale	
+
+
+
+

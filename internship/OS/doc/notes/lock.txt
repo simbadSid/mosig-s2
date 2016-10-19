@@ -1,0 +1,23 @@
+
+
+
+- Goal: improve the performance of the delegation allocation memory model
+- Method: Introduce 2 optimizations methods to the delegation allocation:
+	* "Local-Spin Backoff": Tune the client spin backoff (which is responsible of processors overhade).
+	* Change the store instructions from "ordinary" to "streaming": 
+	
+- Critical section on a shared object: why "Delegation" better than "lock"	
+	* Delegation:  The shared object is always in the cache of the delegation thread
+	* Lock solution:  The thread that accesses the CS needs to import the shared object from the memory(cache) of the previous thread:  May 
+		generate many RMR
+	
+- Definitions:
+	* RMR: remote memory reference: access to shared variables that involves communication on the interconnection network.
+		This request needs more time than a access to a memory in the local cache.  But it may be significantely improved if the network 
+		message passing are implemented in hardware.
+
+
+
+- Questions:
+	* Do we suppose that each memory access involves a memory that is in the cache
+	* 

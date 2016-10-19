@@ -1,0 +1,44 @@
+#!ipxe
+
+
+
+
+
+menu Please choose one of the images
+item
+item
+item
+#MARKER_IMAGES_ITEM_LIST
+
+
+
+
+
+
+
+:#MARKER_IMAGES_LABEL_LIST
+
+
+
+:label_endBoot
+
+echo
+echo
+echo
+echo "----------------------------------"
+echo User            : ${username:uristring}
+echo UForge image id : ${iid}
+echo URI (to remove) : ${uri}
+echo "----------------------------------"
+echo Please press on any key
+read str
+
+kernel ${uri}/#MARKER_PATH_KERNEL/#MARKER_FILENAME_KERNEL initrd=#MARKER_FILENAME_FILESYSTEM repo=${uri}
+initrd ${uri}/#MARKER_PATH_FILESYSTEM/#MARKER_FILENAME_FILESYSTEM
+
+echo Please press on any key
+read str
+
+boot
+
+

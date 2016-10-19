@@ -1,0 +1,156 @@
+[root@ensipc230 ~]# udptarget 
+IPv6 (and IPv4) protocol
+Receiving from port 13000
+    Time    Kbit/s
+Sequence error : expected = 715806, received = 138370
+Sequence error : expected = 138600, received = 54840
+Sequence error : expected = 715971, received = 138601
+Sequence error : expected = 138834, received = 54916
+Sequence error : expected = 716022, received = 138835
+Sequence error : expected = 139001, received = 55042
+Sequence error : expected = 716194, received = 55045
+Sequence error : expected = 716435, received = 55048
+Sequence error : expected = 716436, received = 55049
+Sequence error : expected = 716679, received = 139241
+Sequence error : expected = 139333, received = 55226
+Sequence error : expected = 716878, received = 55289
+Sequence error : expected = 716881, received = 55639
+Sequence error : expected = 717044, received = 55881
+Sequence error : expected = 139815, received = 56074
+Sequence error : expected = 717230, received = 56232
+Sequence error : expected = 139848, received = 56470
+Sequence error : expected = 717289, received = 139849
+Sequence error : expected = 717355, received = 56597
+Sequence error : expected = 717357, received = 56737
+Sequence error : expected = 140038, received = 56744
+Sequence error : expected = 717442, received = 140039
+Sequence error : expected = 140128, received = 56873
+Sequence error : expected = 717664, received = 140217
+Sequence error : expected = 717714, received = 56877
+Sequence error : expected = 717851, received = 57064
+Sequence error : expected = 717932, received = 57068
+Sequence error : expected = 718116, received = 57071
+Sequence error : expected = 718210, received = 140570
+Sequence error : expected = 718345, received = 57261
+Sequence error : expected = 718682, received = 57279
+    1.000   95044.1
+Sequence error : expected = 718689, received = 57306
+Sequence error : expected = 718848, received = 141207
+Sequence error : expected = 141228, received = 57465
+Sequence error : expected = 719026, received = 57644
+Sequence error : expected = 719097, received = 57655
+Sequence error : expected = 719160, received = 141653
+Sequence error : expected = 141723, received = 57657
+Sequence error : expected = 719412, received = 142081
+Sequence error : expected = 142169, received = 57663
+Sequence error : expected = 142173, received = 57847
+Sequence error : expected = 719432, received = 142175
+Sequence error : expected = 142483, received = 58173
+Sequence error : expected = 719578, received = 58198
+Sequence error : expected = 142487, received = 58623
+Sequence error : expected = 719736, received = 142488
+Sequence error : expected = 142688, received = 58651
+Sequence error : expected = 719858, received = 142690
+Sequence error : expected = 719860, received = 142854
+Sequence error : expected = 142951, received = 58837
+Sequence error : expected = 720022, received = 58965
+Sequence error : expected = 720024, received = 143045
+Sequence error : expected = 720025, received = 143046
+Sequence error : expected = 143090, received = 59038
+Sequence error : expected = 720155, received = 143110
+Sequence error : expected = 720248, received = 59242
+Sequence error : expected = 720249, received = 59245
+Sequence error : expected = 143294, received = 59360
+Sequence error : expected = 720399, received = 143295
+Sequence error : expected = 720473, received = 59391
+Sequence error : expected = 720622, received = 59532
+Sequence error : expected = 143394, received = 59534
+Sequence error : expected = 143532, received = 59537
+Sequence error : expected = 720762, received = 59539
+Sequence error : expected = 720823, received = 143549
+Sequence error : expected = 143648, received = 59542
+Sequence error : expected = 720926, received = 59545
+Sequence error : expected = 720928, received = 143850
+Sequence error : expected = 720929, received = 143851
+Sequence error : expected = 721328, received = 143854
+Sequence error : expected = 143992, received = 59589
+Sequence error : expected = 721431, received = 143993
+Sequence error : expected = 144025, received = 59738
+    2.000   94973.4
+Sequence error : expected = 721620, received = 60051
+Sequence error : expected = 144482, received = 60250
+Sequence error : expected = 721958, received = 144484
+Sequence error : expected = 144539, received = 60273
+Sequence error : expected = 144722, received = 60275
+Sequence error : expected = 722362, received = 60370
+Sequence error : expected = 722705, received = 60517
+Sequence error : expected = 722809, received = 144728
+Sequence error : expected = 144830, received = 60521
+Sequence error : expected = 722814, received = 60722
+Sequence error : expected = 722817, received = 144996
+Sequence error : expected = 145071, received = 60957
+Sequence error : expected = 145216, received = 61109
+Sequence error : expected = 722824, received = 145219
+Sequence error : expected = 723005, received = 145524
+Sequence error : expected = 723006, received = 145527
+Sequence error : expected = 145732, received = 61235
+Sequence error : expected = 723207, received = 61239
+Sequence error : expected = 723268, received = 61244
+Sequence error : expected = 146088, received = 61390
+Sequence error : expected = 146246, received = 61582
+Sequence error : expected = 723273, received = 146247
+Sequence error : expected = 146442, received = 61809
+Sequence error : expected = 723460, received = 61812
+Sequence error : expected = 146787, received = 62020
+Sequence error : expected = 723505, received = 147051
+Sequence error : expected = 723506, received = 147052
+Sequence error : expected = 147077, received = 62205
+Sequence error : expected = 723552, received = 147078
+Sequence error : expected = 147352, received = 62363
+    3.000   94997.8
+Sequence error : expected = 723557, received = 147486
+Sequence error : expected = 147507, received = 62532
+Sequence error : expected = 723759, received = 62535
+Sequence error : expected = 723792, received = 147654
+Sequence error : expected = 724056, received = 62538
+Sequence error : expected = 147823, received = 62639
+Sequence error : expected = 148013, received = 62641
+Sequence error : expected = 148163, received = 62643
+Sequence error : expected = 724148, received = 148164
+Sequence error : expected = 148264, received = 62736
+Sequence error : expected = 724168, received = 148265
+Sequence error : expected = 148433, received = 62868
+Sequence error : expected = 724191, received = 148434
+Sequence error : expected = 724355, received = 148787
+Sequence error : expected = 724411, received = 63005
+Sequence error : expected = 724414, received = 149289
+Sequence error : expected = 724575, received = 149480
+Sequence error : expected = 724578, received = 149482
+Sequence error : expected = 724720, received = 149728
+Sequence error : expected = 724870, received = 63062
+Sequence error : expected = 724874, received = 150068
+Sequence error : expected = 150637, received = 63124
+Sequence error : expected = 150639, received = 63285
+Sequence error : expected = 724879, received = 63421
+Sequence error : expected = 725061, received = 150642
+Sequence error : expected = 725215, received = 63623
+Sequence error : expected = 725258, received = 150645
+Sequence error : expected = 725455, received = 63773
+Sequence error : expected = 151017, received = 63854
+Sequence error : expected = 725484, received = 151018
+Sequence error : expected = 151517, received = 64018
+Sequence error : expected = 725488, received = 64134
+Sequence error : expected = 151686, received = 64138
+Sequence error : expected = 151688, received = 64310
+    4.000   95008.8
+Sequence error : expected = 725627, received = 151689
+Sequence error : expected = 725927, received = 64355
+Sequence error : expected = 151850, received = 64373
+^C32907 received packets
+0 duplicated packets
+60304858 lost packets
+143 lost sequences
+max length of lost sequence = 715759
+140 sequence errors
+bye!
+

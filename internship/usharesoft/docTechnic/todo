@@ -1,0 +1,24 @@
+
+
+
+- How to run a background process (daemon)
+	Use the tool "service"
+
+- How to download and launch a firewall on centos6
+	Probably not usefull for now 
+
+- How to change the DHCP config file in order to do not answer to DHCP on VM Network
+	see mail clement (DHCP).   Use the config files: 
+	* /etc/dhcp/dhcpd.conf			: Configure the DHCP server
+	* /etc/dhcp/conf.d/vlan112.conf		: Configure the specific vlan112 (included by dhspd.conf)
+	* /etc/dhcp/conf.d/clients112.conf	: Configure the client of the vlan112 (included by vlan112.conf)
+
+-TODO 07-07-2016
+	- Create a script to configure the DHCP service with the initialPxeFile (dynamically considering TFTP or HTTP)
+	- Make the test on iPXE
+	- Try to ansewr to the questions of jeff (see picture of meeting)
+
+-TODO 07-20-2016
+	- Investigate on centos pxe bug: understand which filesystem is involved in the bug.
+	- Understand how anaconda create the config file using the iso file.   Where qre the uforge configuration in the iso file.
+

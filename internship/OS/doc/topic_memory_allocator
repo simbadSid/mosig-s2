@@ -1,0 +1,46 @@
+** Context
+
+With the raise of manycore processors, designing and implementing
+concurrent algorithms that can scale to a large number of cores is
+becoming more and more chalenging. Even the simplest ubiquitous
+objects such as linked lists or queues require advanced
+synchronization strategies to be made efficient.
+
+Among the things that can impact the efficiency of a concurrent
+algorithm, memory allocation is one that is often disregarded but that
+can have a deep impact on performance. In one word, the problem is
+that when dealing with a large number of threads that frequently
+malloc and free memory, the memory allocation system (which is also a
+concurrent program that relies on locks or other synchronization
+primitives) may become the performance bottleneck.
+
+** Objectives
+
+Several memory allocators have been proposed and are freely available
+(the default glibc malloc, the Hoard allocator, TCMalloc, etc.).
+
+In a first step, the goal of this research project would be to analyse
+how these allocators work to be able to compare their efficiency. Here
+efficiency not only means performnace, but also actual memory usage
+for instance. 
+
+In a second step, the efficiency of these memory allocators would be
+compared through experiments on large multicore processors. For these
+experiments, state-of-the-art concurrent queue and lists algorithms
+would be used.
+
+** References
+
++ http://www.hoard.org/
++ http://goog-perftools.sourceforge.net/doc/tcmalloc.html
++ "An Experimental Study on Memory Allocators in Multicore and
+Multithreaded Applications". T. Ferreira et al, 2011.
++ "Fast, Multicore-Scalable, Low-Fragmentation Memory Allocation
+through Large Virtual Memory and Global Data Structures". M. Aigner et
+al, 2015.
++ "SuperMalloc: A Super Fast Multithreaded Malloc for 64-bit
+Machines". B. Kuszmaul, 2015.
+
+
+
+

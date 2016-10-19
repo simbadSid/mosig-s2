@@ -1,0 +1,56 @@
+- Canonical form of an LP
+	* maximization
+	* all variables are non negative
+	* all constraints are inequalities of the type “≤”
+
+- Standard form of an LP (same 2 first proper)
+	* All constraints are equations
+--------------------------------------------------------------------
+- Changing constraint:
+	* x <= 0	=> -x >= 0
+	* x in R	=> x = x_Positif + x_Negatif
+- Changing objectif:
+	max(f) = min(-f)
+--------------------------------------------------------------------
+min			max
+primal			dual
+dual			primal
+variable ≥ 0		constraint ≤
+variable ≶ 0		constraint =
+variable ≤ 0		constraint ≥
+constraint ≤		variable ≤ 0
+constraint =		variable ≶ 0
+constraint ≥		variable ≥ 0
+
+--------------------------------------------------------------------
+Weak duality theorem:
+	For each pair of feasible solutions x of (P) and w of (D),  z = cx ≥ wb = v
+Strong duality theorem:
+	If (P) has solutions and (D) has solutions, then cx∗ = w∗b
+Complementary slackness property:
+	x∗ optimal for (P) and w ∗ optimal for (D) verify
+	- the slack variable of a constraint of (P) is zero
+	or
+	- the variable associated with this constraint in w ∗ is zero likewise in the other way round
+--------------------------------------------------------------------
+What is the interest of the three theorems of duality
+	- Weak duality: to make the proof of optimality
+	- Complementary slackness: to find an optimal solution of the
+	dual knowing an optimal solution of the primal
+	- Strong duality: guaranties that an optimality proof is feasible (using duality)
+--------------------------------------------------------------------
+- Threashold contraint: x > 0 => x >= K
+	x<= My
+	x>= Ky
+	y in {0, 1}
+--------------------------------------------------------------------
+- Disjonctive constraint:   ti + di <= tj if i before j
+                            tj + dj <= ti if j before i
+	ti + di <= tj + M(1 - yij)
+	tj + dj <= ti + M(yij)
+--------------------------------------------------------------------
+- linearize xx' with x, x' in {0, 1} (introduce y = xx')
+	y <= x
+	y <= x'
+	x + x' - 1 <= y
+	y in {0, 1}

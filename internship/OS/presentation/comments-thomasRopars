@@ -1,0 +1,92 @@
+
+
+
+
+
+
+- Etre plus direct dans la presentation
+- Example de slide ou aller plus vite: 2 (motivation), 
+- Simplifier chaque phrase pour simplifier le discour: Reflechire a la premiere phrase que je dis pour chaque point de chaque slide.
+- Rajouter un slide pour expliquer le custom allocateur (voir ou le placer)
+
+
+
+
+
+- Me presentaer dans le slide1 : mon nom, mon parcour, mon stage au sein de l'equipe errods avec Thomas Ropars
+- Rajouter un premier slide bateau avec des images pour illustrer le multithreading
+- Rajouter un slide avant Motivation qui montre la complexite de l'archi avec les differents caches
+- Rajouter un slide pour expliquer ce que c'est delegation avant le slide de la motivation: deplacer la partie definition de delegation dans les motivations
+	- Ces algo on permis d'implementer la queue la plus efficace qui existe en multicoeur
+
+
+
+
+- Rajouter un slide contribution avant outline: 
+		1- Impact de l'allocateur sur les perf de multithreading
+		2- ca inverse les conclusions d'avant
+- Simplifier le slide de plan (garder que les gros titres). Simplifier les discours sur les slides
+
+- Corriger les discours sur delegation: l'interet de la delegation est cache locality:  les objects qui sont utilises dans la sc sont garde par le cache du serveur pendant toutes les differentes sc=> pas de cache miss 
+
+- Un slide pour les deux algo de delegation: pas trop rentrer dasn les details de l'algo optimise
+- Remettre le plan pour la transition.
+
+- False sharing: remplacer les "access sequenciel" par le pb de bound sink: le pb est que l'info doit bouger d'un cache a un autre ce qui est couteux: remplacer les fleches sur le shema
+
+- Enlever le slide sur heavy process (peut etre)
+
+- Remettre le plan pour la transition avec les resultats
+
+- Remplacer le slide sur testing environment:  (eventuellement regrouper les slides suivants)
+	- Faire plus simple: 
+		- On a pinner un thread par coeur: enlever l'impact du schedular sur les perf.
+		- moin de thread que de coeur
+		- On test un Michael Scott queue + rementionner que on compare les deux methodes de delegation 
+	
+	- Rajouter un slide "test bed" pour ennoncer les processur et les kernel
+	- Rajouter un slide pour ennoncer les allocateurs
+
+
+- Enlever le tittre des figure (eventuellement les mettre dans le tittre)
+- Figures resulta:  aggrandir au max la taille des fig
+- Decrire ce qu'on voi sur les graphe: dire explicitement: on calcule le throughput 
+	- a cote de la clef throughput (axes des Y): ecrire the higher is better
+	- Rajouter les tittres des processeur
+	- Detailler les optimization de tc malloc:  dire "J'ai pas le temps de expliquer tous les allocateur.  Mais juste tcmalloc fait ca et ca..."
+
+
+
+
+- Corriger la figure comparison des algo:
+	- Redecrire comme precedament: on montre le throughput par number de coeur
+	- Dire explicitement que le tc est de couleur(...) et le custom de couleur (...)
+	- utiliser des points pour cc et des + pour mp
+	- Utiliser des couleur fluo pour les allocatuers
+
+
+
+- Conclusion: rappeler le but: objectif = voir l'impact des alloc sur des algo de synchroni: tres rapide: objectif + resultat + ouverture
+	- On a montrer que en utilisant les meilleur alloc de l'etat de l'art,
+	- Donner un seul point important dans la conclusion, au lieu de re resume tout
+	- Faire une ouverture forte: example comprendre pk avec tcmalloc les resultat sont inverse: maintenant que on a vu qu'il existait un impact, on peut essayer de comprendre plus precisement pk.  Ya t il des truc specific a tcmalloc
+	- Ouverture example 2: si on avait utiliser une autre structure que la queue (conteur, ...)
+	- Ouverture example 3: si on changeait le workload et de faire tout les enqueue puis tous les dequeue
+
+- Penser a un slide finale.   Eventuellement mettre le slide initiale	
+
+
+
+- Simplifier le slide sur virtual span:
+	- Simplifier le text
+	- Simplifier la figure: enlever real span
+	- Evantuellement mettre toute la slide avec false sharing
+
+- Enlever le premier slide de allocator: le mettre dans motivation
+
+- Mettre le slide software issue (bottleneck) avant harddware issue
+- Remplecer le tittre software issue par centralized bottcleneck
+
+
+
+

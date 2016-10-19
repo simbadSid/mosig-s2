@@ -1,0 +1,44 @@
+
+
+
+	- IDE command:			devEnv (private alias.   Script at"/home/riyane/UShareSoft/WKS/dev-templates/UShareSoft-Dev-Env/dev-env-launcher.sh")
+
+	- Git comments:			uforge-<ticketID>-<nomDuBug>
+
+	- Git website:			gerrit.usharesoft.com
+
+	- Login virtual machines: 	user
+	- Password virtual machines: 	passpass | passpass@12
+
+	- Password onestop:		welcome
+
+Uforge:
+	- Username:			riyane
+	- Email:			sidlakhdar.riyane@gmail.com
+	- Company:			ENSIMAG
+	- Password:			IOIvllmjbk
+					e0xDK2ax8dsq
+	- Creation code:		uforge-online-free
+
+Uforge internal server:
+	- IP:				https://10.1.2.112/uforge/
+	- Login:			root
+	- Password:			uforgedemo
+
+Persistant config of the network:
+	- Config file:			/etc/sysconfig/network-scripts/ifcfg-<interface name>
+
+Scan memory content:
+	du -ksh <absolute path of the dir to scan>
+
+Write the tcpdump res in file to be scanned by wireshark:
+	tcpdump -i eth1 -s 65535 -w <file.pcap>
+
+vsftpd (ftp server) root directory
+	/var/ftp/
+
+nginx (http server) root directory
+	/usr/share/nginx/html
+
+Centos 7: version working with iPxe (http)
+	http://93.113.36.66/centos/7/os/x86_64/

@@ -1,0 +1,34 @@
+#!ipxe
+
+
+
+
+
+
+login
+echo Please select the identifier of the UForge appliance that you expect
+read aid
+echo Please select the identifier of the UForge image you expect
+read iid
+
+set uri #MARKER_TRANSFERT_PROTOCOL://${username:uristring}:${password:uristring}@#MARKER_NEXT_SERVER_IP:#MARKER_NEXT_SERVER_PORT/#MARKER_REST_URI_SPECIFIC_IMAGE/
+
+echo
+echo
+echo
+echo "----------------------------------"
+echo User            : ${username:uristring}
+echo UForge image id : ${iid}
+echo URI (to remove) : ${uri}
+echo "----------------------------------" 
+echo Please press on any key
+read str
+
+kernel ${uri}/#MARKER_PATH_KERNEL/#MARKER_FILENAME_KERNEL initrd=#MARKER_FILENAME_FILESYSTEM repo=${uri}
+initrd ${uri}/#MARKER_PATH_FILESYSTEM/#MARKER_FILENAME_FILESYSTEM
+
+echo Please press on any key
+read str
+
+
+boot 

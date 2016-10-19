@@ -1,0 +1,26 @@
+[root@ensipc230 ~]# ifconfig 
+bge0: flags=8843<UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST> metric 0 mtu 1500
+	options=c019b<RXCSUM,TXCSUM,VLAN_MTU,VLAN_HWTAGGING,VLAN_HWCSUM,TSO4,VLAN_HWTSO,LINKSTATE>
+	ether 00:0a:f7:03:d0:5f
+	nd6 options=29<PERFORMNUD,IFDISABLED,AUTO_LINKLOCAL>
+	media: Ethernet autoselect (1000baseT <full-duplex>)
+	status: active
+vlan0: flags=8843<UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST> metric 0 mtu 1500
+	options=103<RXCSUM,TXCSUM,TSO4>
+	ether 00:0a:f7:03:d0:5f
+	inet6 fe80::20a:f7ff:fe03:d05f%vlan0 prefixlen 64 scopeid 0x5 
+	inet 192.168.0.2 netmask 0xffff0000 broadcast 192.168.255.255
+	nd6 options=21<PERFORMNUD,AUTO_LINKLOCAL>
+	media: Ethernet autoselect (1000baseT <full-duplex>)
+	status: active
+	vlan: 1 parent interface: bge0
+vlan1: flags=8843<UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST> metric 0 mtu 1500
+	options=103<RXCSUM,TXCSUM,TSO4>
+	ether 00:0a:f7:03:d0:5f
+	inet6 fe80::20a:f7ff:fe03:d05f%vlan1 prefixlen 64 scopeid 0x6 
+	inet 10.0.0.2 netmask 0xffffff00 broadcast 10.0.0.255
+	nd6 options=21<PERFORMNUD,AUTO_LINKLOCAL>
+	media: Ethernet autoselect (1000baseT <full-duplex>)
+	status: active
+	vlan: 2 parent interface: bge0
+

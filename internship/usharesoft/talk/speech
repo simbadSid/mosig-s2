@@ -1,0 +1,108 @@
+Riyane
+
+	- Clean all the machines created on VCenter
+	Section 4.1: preciser que c une centos.  Add a block about ubuntu
+
+nom de ma branche : 
+
+
+
+
+
+Explain what we can do that we couldn't with iso
+
+As  said, I am going to present to you the investigations and implementations that we made about the PXE technology.
+
+To do so, I will give in a first time a brief introduction about the PXE technology principles.   I will also try to show what are its main adventages and limitations for a physical or virtual image publisher such as UShareSoft.
+Then, using this vue of the PXE technology, we will see in a second time what are the designs and the implementations that we made.   How does this designs provide the user some intresting features in terms of usability, efficiency and security.   We will make a demonstration of our implementation and see how it has been integrated to the uForge platform.
+Finally, we will consider sevral possible evolutions of this designs based on the features that we could provide to the userdepending the UShareSoft strategies.
+
+
+%----------------------------------------------------------------
+1. What is the PXE technology
+	1.1 What is the PXE specification
+	- Standard client server environment: And this is very important cause this standard is very widely used by the network industry. Hence a technology based on PXE may be designed for a verry large set of customers: going from physical servers and laptops up to virtual containers.
+	- Boots an OS from network.   As the PXE standards supports sevral file transfert protocols such as HTTP and HTTPS, we may take adventage of the security and the efficiency offered on both client and server sides.
+	- The PXE technology is the most frequent choice for OS booting (at least for local areas networks) and this, ones again gives a real insurence to find potential customers.
+
+	%----------------------------------------------------------------
+	1.2 Technical principles
+	Basically, when a light client (hence a client running on the top of no OS) so when such a client tries to boot using the PXE protocol, it will first broadcast a DHCP request in order to configure its network card and to discover the PXE configuration that is offered on his network.   The DHCP answer will mainly give the address of the servers where to ask for a PXE binary as well as for the different OS files to boot.
+
+	Then, a communication session will start between the light client and the PXE servers (typically for us it will be the UForge server).
+	Before this session starts, the light client was running on the top of an extreamely simple kernel (that does not even implement implement an HTTP api) and that is burned on the network card ROM.   Thus the first thing that is done during this session is to ask for a PXE binary that implements more improved features.
+	Basically this new PXE binary is a software full stack including the boot algorithm that allows the user to enter its instructions and credentials.   It also includes all the API and the binaries that allow to communicate with the PXE servers using some secure protocoles.
+
+
+	%----------------------------------------------------------------
+	Knowing this PXE technical principles, you may already have noticed some limitations (some of them concern the features that we could provide, and others are about some tread off that the user has to make).
+	%----------------------------------------------------------------
+	1.3 Limitations
+	First of all, the binary that executes the boot algorithms is a real otonomus system: it implements all the used network protocoles, as well as a file system or a schedular. And all this binary is stored on the network card ROM of the  light client.
+	As the size of this ROM may hardly exceed 1 Mega byte, we can easily see that we are extremly limited in terms of features and evolutions that may be embeeded to this client binary.
+
+	Second, in the PXE boot process, it is mandatory that the DHCP server of the client network knows all the informations about the PXE environment.   Which, unfortunately involves to bring some modifications or some additional configurations to the DHCP server on the client network.
+
+	Finally, the binarry that uses the client to boot is totally compiled and packaged on the server side.   Thus the build of this binaries must consider all the possible processor architectures that may be used a the client.
+
+
+%----------------------------------------------------------------
+Despite all this issues and limitations, we still think that such a technology may be very intresting for a company such as UShareSoft which needs to efficientely deploy machines and images within heterogenous environments and platforms.
+So how do we integrate a PXE based image publisher on the UForge platform?  And mainly what does this designs brings to the UForge customers in terms of additional features, usability and security.
+%----------------------------------------------------------------
+2. Software architecture and features
+Basically, we have designed two families of architectures in order to make a light client boot on UForge.  And be able to choose among some of his generated images.
+
+	%----------------------------------------------------------------
+	2.1 Straight forward client/UForge communication
+	In the first one, the client may have a straight communication with the UForge servers.
+	Ones the client has received the DHCP answer, it will be able directly ping the UForge servers to access all the PXE binaries and the catalog of his personal OS images.
+
+	So this architecture is probably the most simple one that we could design.   And for sure it takes a significant adventage of this simplicity.
+	First of all, no package needs to be installed on the client network.   As soon as the client's DHCP is correctly configured, the user may access the PXE feature at each light client boot.   And no need to implement any connector or specific tool.   All the light client no metter them architecture or environment may access the UForge servers.
+
+	However, the simplicity of this architecture is also a drawback.   Cause a verry few set of future evolution or features may be enbeed to it.   Another limitation is that as all the clients on a given network communicate with UForge independantly, they will create a real contention on the server: The UForge server will have to send different times the same image to the same network, and do not take adventage of space locality;  Making the boot process less efficient.
+
+	%----------------------------------------------------------------
+	2.2  Proxy on the client network
+	In this second family of architectures, a proxy is injected on the client network.   This proxy is a simple python or bash script.   It is injected the same way we currently inject the migration tools.
+	The aim of this proxy is to centralize all the communication between a light client and UForge.   Using this proxy, a customer logs on UForge through.   Then he can allow a set of users on his sub network to access a set of his personal UForge images.   He may target this light hosts using them IP, MAC address or any identifier.   The user may also choose wheather this images are public on his subnetwork, or are simply open for a set of users.
+	This proxy may also be used to implement some very simple cache strategies (based on time or write accesses).
+	All the communications between the light clients and UForge goes through this proxy.
+	Thus, we obviously reduce the contention on the UForge server.   Most of the communications are made within the client's local network.   
+	Thus the boot process is more efficient.
+
+
+	%----------------------------------------------------------------
+	2.3 Demo
+	Let's now moove to the presentation of the software that has already been implemented, and integrated to the UForge environment.   Basically, we have implemented a proof of concept of the first architecture: The one where the client has a straight forward communication with UForge.   But what you need to understand is that the 2 models are not 	antagonistic.   They may bee both implemented on the same produce.
+
+
+
+%----------------------------------------------------------------
+As you may have noticed, this PXE technology may give a large set of possible features and...
+But the intresting part, is that the use of this technology within the UForge environment may be addapted and used as a tool for sevral devlopment strategies that can be decided by UShareSoft.   Uses no new technology for the connectors
+%----------------------------------------------------------------
+3. Maintainability and possible evolutions
+
+	%----------------------------------------------------------------
+	3.1 First strategy: Get ride of the iso format.
+
+
+	Thus a first strategy may be to consider this devices as an important set of potential users.   Thus we could promote the use of our PXE features to make the boot process on this devices much more easy.
+
+
+	%----------------------------------------------------------------
+	3.2 Second strategy: Get ride of clouds or virtual invironment connectors
+
+	A second strategy would be to focus on this cloud or virtual environment where the connectors are hard or impossible to implement.    As this technology requires only a proper DHCP configuration and a basic network card ROM pxe binary, 
+
+
+
+
+%----------------------------------------------------------------
+4. Conclusion
+To sumarize, we have prooved that using the PXE technology, we may provide a secure and user friendly way to make light host boot from heterogeneous environment, inlcuding physical machines virtual clients hosted on clouds or different types of container.
+By addapting the existing implementations of the PXE client binaries, we have been able to implement a secure way to access images published on a UForge account, by taking advantage of the existing implementations and webservices on UForge.
+Finally we have designed architectures that provide features and possible evolutions that we can fite the 
+

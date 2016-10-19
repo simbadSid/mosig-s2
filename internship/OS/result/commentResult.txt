@@ -1,0 +1,5 @@
+
+
+- 24 cores machine:  :
+	- Throughput increases less at 12 thread (and more): to checkls
+	

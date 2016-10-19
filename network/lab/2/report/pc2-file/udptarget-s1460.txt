@@ -1,0 +1,18 @@
+[root@ensipc230 ~]# udptarget 
+IPv6 (and IPv4) protocol
+Receiving from port 13000
+    Time    Kbit/s
+    0.424   40599.7
+    1.424   95682.6
+    2.424   95659.2
+    3.424   95670.9
+    4.424   95682.6
+    5.424   95670.9
+^C48354 received packets
+0 duplicated packets
+0 lost packets
+0 lost sequences
+max length of lost sequence = 0
+0 sequence errors
+bye!
+

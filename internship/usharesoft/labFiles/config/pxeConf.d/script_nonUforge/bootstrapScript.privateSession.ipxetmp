@@ -1,0 +1,84 @@
+#!ipxe
+
+
+
+
+
+
+#menu Welcome root
+menu Please choose one of the UForge images
+item
+item
+item
+item
+item    label_centos_pedro_2.0rev3_vbox  centos_pedro_2.0rev3_vbox
+item
+item    label_centos7_pxeDemo2_1.0rev3  centos7_pxeDemo2_1.0rev3
+item
+item    label_centos7_x86_1.0rev3  centos7_x86_1.0rev3
+
+
+
+
+
+
+choose target && goto ${target}
+
+
+
+
+
+
+
+
+
+
+:label_centos_pedro_2.0rev3_vbox
+login
+set uri #MARKER_TRANSFERT_PROTOCOL://${username:uristring}:${password:uristring}@#MARKER_NEXT_SERVER_IP:#MARKER_NEXT_SERVER_PORT/ufws/users/${username:uristring}/appliances/9/images/4/downloads/     ####centos_pedro_2.0rev3_vbox
+
+echo "Tips for future implementation:"
+echo "    We should replace this login interface by a temporary key that would replace the password to access the user specific image"
+read str
+goto label_endBoot
+
+
+:label_centos7_pxeDemo2_1.0rev3
+login
+set uri #MARKER_TRANSFERT_PROTOCOL://${username:uristring}:${password:uristring}@#MARKER_NEXT_SERVER_IP:#MARKER_NEXT_SERVER_PORT/ufws/users/${username:uristring}/appliances/9/images/9/downloads/     ####centos7_pxeDemo2_1.0rev3
+
+echo "Tips for future implementation:"
+echo "    We should replace this login interface by a temporary key that would replace the password to access the user specific image"
+read str
+goto label_endBoot
+
+
+:label_centos7_x86_1.0rev3
+login
+set uri #MARKER_TRANSFERT_PROTOCOL://${username:uristring}:${password:uristring}@#MARKER_NEXT_SERVER_IP:#MARKER_NEXT_SERVER_PORT/ufws/users/${username:uristring}/appliances/9/images/7/downloads/     ####centos7_x86_1.0rev3
+
+echo "Tips for future implementation:"
+echo "    We should replace this login interface by a temporary key that would replace the password to access the user specific image"
+read str
+goto label_endBoot
+
+
+
+:label_endBoot
+
+echo
+echo
+echo
+echo "----------------------------------"
+echo URI (to remove) : ${uri}
+echo "----------------------------------"
+echo Please press on any key
+read str
+
+kernel ${uri}/images/pxeboot/vmlinuz initrd=initrd.img repo=${uri}
+initrd ${uri}/images/pxeboot/initrd.img
+
+echo Please press on any key
+read str
+
+boot

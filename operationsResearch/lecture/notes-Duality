@@ -1,0 +1,35 @@
+min			max
+primal			dual
+dual			primal
+variable ≥ 0		constraint ≤
+variable ≶ 0		constraint =
+variable ≤ 0		constraint ≥
+constraint ≤		variable ≤ 0
+constraint =		variable ≶ 0
+constraint ≥		variable ≥ 0
+
+
+
+
+
+
+Weak duality theorem:
+	For each pair of feasible solutions x of (P) and w of (D),  z = cx ≥ wb = v
+Strong duality theorem:
+	If (P) has solutions and (D) has solutions, then cx∗ = w∗b
+Complementary slackness property:
+	x∗ optimal for (P) and w ∗ optimal for (D) verify
+	- the slack variable of a constraint of (P) is zero
+	or
+	- the variable associated with this constraint in w ∗ is zero likewise in the other way round
+
+
+
+
+
+What is the interest of the three theorems of duality
+	- Weak duality: to make the proof of optimality
+	- Complementary slackness: to find an optimal solution of the
+	dual knowing an optimal solution of the primal
+	- Strong duality: guaranties that an optimality proof is feasible (using duality)
+

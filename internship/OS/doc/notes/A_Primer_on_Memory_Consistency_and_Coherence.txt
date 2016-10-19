@@ -1,0 +1,10 @@
+
+
+
+
+
+- Definition:
+	- Consistency: defines correct shared memory behavior in terms of loads and stores (memory reads and writes), without
+	reference to caches or coherence
+	
+	- Coherence (cache coherence):

@@ -1,0 +1,135 @@
+            ipmt : IP measurement tools
+
+$Id: LISEZ_MOI 119 2009-12-07 12:32:54Z heusse $
+
+Outils de mesure des performances réseau au niveau transport
+------------------------------------------------------------
+Performance network measurements tools at the transport level
+
+Ipmt est un ensemble d'outils de mesure des performances de réseaux
+aux niveau transport sous TCP/IP et UDP/IP.
+
+Tcpmt et udpmt sont les programmes clients, respectivement en TCP et UDP. 
+Ils fournissent toutes les secondes un rapport du débit obtenu, ce qui
+permet une mesure en continu du débit, à l'inverse d'outils comme netperf,
+iperf ou ttcp.  Ils permettent donc non seulement une évaluation du débit 
+moyen, mais aussi une surveillance en continu de l'évolution du débit face
+à des changements de conditions du réseau, comme l'intervention de 
+transmissions concurrentes, ou des changements des conditions de transmission
+(par exemple pour les réseaux sans-fil).
+
+Par défaut, ils transmettent en continu vers le port discard de la machine
+destinataire.  Ceci signifie que, sous UDP, le débit mesuré au niveau
+de l'émetteur peut ne pas correspondre au débit effectivement transmis,
+puisque UDP n'offre aucune garantie.
+
+Udpmt et tcpmt n'ouvrent aucune connexion TCP de contrôle, contrairement à -
+par exemple - netperf.  On ne rencontre donc pas le problème de connexions
+TCP qui ont du mal à s'établir du fait d'une transmission UDP ayant démarré
+vant.
+
+Tcptarget et udptarget sont deux programmes qui permettent la mesure du débit
+au niveau de la destination (seule mesure fiable dans le cas de UDP).
+
+Utilisation simplifiée :
+------------------------
+
+tcpmt [-p port] [-s pktsz] [-n pktnb] [-d secs] host
+udpmt [-p port] [-s pktsz] [-n pktnb] [-d secs] host
+
+Où :
+
+- port est le numéro du port destinataire (discard, par défaut).
+- pktsz est la taille des paquets émis (1472 octets par défaut)
+  Ce paramètre n'est vraiment significatif que sous UDP.
+- pktnb est le nombre de paquets à émettre (par défaut, le programme
+  émet jusqu'à ce qu'on l'arrête par Control-C).
+- secs est la durée du test en secondes.  Si secs et pktnb sont spécifiés, le
+  test s'arrête dès que l'une des deux conditions est vérifiée (nombre de
+  paquet atteint, ou durée atteinte).
+- host est la machine destinataire.
+
+Le programme émet toutes les secondes un rapport comportant :
+
+- l'instant d'émission (en ms depuis 0h),
+- le nombre de paquets émis durant l'intervalle,
+- le nombre totale de paquets émis,
+- le débit mesuré durant l'intervalle, en kbit/s,
+- le débit moyen sur les 10 dernieres secondes,
+- le débit moyen depuis le début.
+
+Tcptarget et udptarget sont deux programmes qui permettent la mesure du
+débit au niveau de la destination.  
+
+tcptarget [-i ms] [-o filename] [-p port]
+udptarget [-i ms] [-o filename] [-p port]
+
+Où :
+
+* ms est l'intervalle d'affichage du débit en millisecondes.  Par défaut, le
+  débit est affiché toutes les secondes.
+* filename est le nom du fichier dans lequel la trace du débit est enregistrée.
+  Si aucun nom de fichier n'est spécifié, le débit s'affiche sur la sortie
+  standard.  Si un nom de fichier est spécifié, la trace est enregistrée dans
+  ce fichier, et le débit est également affiché sur la sortie standard.
+* port est le numéro du port sur lequel le programme se met en écoute.  Si
+  aucun port n'est spécifié, un numéro de port est choisi et affiché.
+
+Dès que tcptarget/udptarget commencent à recevoir des paquets, ils
+affichent un compte rendu toutes les secondes.  Ce compte rendu est plus
+simple que celui du programme émetteur (et donc plus facile à exploiter,
+bien que moins complet), et comporte l'heure de réception en secondes
+(avec 3 décimales, donc une précision à la milliseconde), et le débit en
+kbit/s.
+
+L'utilisation de tcp/udptarget présente un gros avantage lorsqu'on veut
+mesurer le comportement de flots concurrents envoyés vers une même
+machine cible: les instants d'arrivée étant mesurés sur la même machine,
+les résultats peuvent être mis en correspondance sans avoir à s'assurer
+de la bonne synchronisation des machines émettrices.
+
+Utilisation avancée udpmt :
+---------------------------
+
+Udpmt possède un certain nombre d'options supplémentaires qui permettent de
+l'utiliser comme un générateur de trafic simple :
+
+* -i microsecs : miscrosecs est l'intervalle, en microsecondes, entre les
+  transmissions (ou rafales).  Par défaut, l'intervalle est nul, ce qui signifie que la
+  transmission est continue.
+* -r rate : rate est un débit, en Kilobit par seconde.
+* -B burst : spécifie une taille de rafale en nombre de paquets, c'est à dire 
+  que burst paquets seront transmis de suite sans temps d'attente.  Cette
+  option n'a évidemment d'intérêt que si l'option -i ou -r est spécifiée.
+  par défaut, burst est à 1. Peut être utilisé pour des mesures sans saturation
+  avec l'option -e de udptarget.
+* -b burst : comme ci-dessus, mais la taille des rafales est exprimée en
+  octets.  Dans le cas ou la taille de rafale ne correspond pas à un nombre
+  entier de paquets, la transmission se fait jusqu'à ce que le nombre d'octets 
+  transmis soit supérieur ou égal à la taille des rafales.  L'excédent 
+  éventuel est déduit de la rafale suivante.
+- -t interval : spécifie la valeur en microsecondes de l'intervalle entre les
+  interruptions périodiques utilisées pour le scheduling des transmissions.  La
+  valeur par défaut est 500 microsecondes, ce qui est inférieur à la
+  granularité du timer sur la plupart des systèmes (généralement en une et
+  dix millisecondes).  La valeur effective sera donc le maximum de
+  l'intervalle spécifié et de l'intervalle du timer systeme (1 seconde/HZ).
+- -T TOS : spécifie la valeur de Type de Service (champs ToS des en-têtes IP).
+  Cette valeur est utilisée par les équipements réseau implémentant la qualité 
+  de service.
+  
+Compilation :
+-------------
+
+En dehors de Linux, le programme a été compilé sous
+Solaris, FreeBSD, MacOS X et sous Windows/Cygwin, mais la portabilité
+n'est pas systématiquement vérifiée lors des modifications du programme.
+
+La compilation et l'installation d'ipmt s'effectuent de la manière classique,
+en se plaçant dans le répertoire d'ipmt :
+
+./configure
+make
+make install
+
+Seule la dernière commande nécessite d'être root.

@@ -1,0 +1,50 @@
+
+
+
+
+- Result: scalloc: concurrent allocator
+
+- Goal:
+	* Perform and scall better than others in the experience env.
+	* Be still competitive in other cases.
+	* Do not need any memory allocation at application level.
+
+- Method:
+	0) Reduce (to almost 0) the number of syscall
+	1) Uniform treatment of small and big obj through "virtual span"
+	2) Efficiently and effectively reclaiming free memory through fast and scalable global data structure.
+	3) Constant-time (modulo synchronization) allocation and deallocation operation.  Used for robustness and to save memory (p3, left, point 2)
+
+- Design of scalloc (mapped with the previous methodes):
+	0) Asking a block of memory to the OS only once at the bigining.
+	1) Done through the virtual span system:  Each memory allocation results in allocating a complete virtual span. Both big ans small block seek are done in the same way.   If we
+	ask for bigger block, we use directly the OS mmap functions.
+	2) One Pool of free span composed of lock-free treiber stacks(one stack per core).
+	3) Constant time alocation: due to the fact that allocation is thread local => no synch
+	Constant time deallocation: may happen concurrently in the same span: Solution is to put span in the pool as soon as it becomes free=> no additional  possibly non-constant-
+	time cleanup later
+
+- Questions:
+	- To confirm: scalloc is a library. It is initialized by the user process which allocates a big chunk of memory.  This memory will
+	be splited between the threads and for internal uses.
+	- Is the thread alloc or free memory attomic?  If not, the stack corresponding to this thread should still be synchronized 
+	between the threads.
+	- Are the thread always running on the same core?  If not, 
+
+	* Page 4 right paragraph 2: spatial locality???
+	
+	
+- Definitions:
+	* TLAB: Thread local allocation buffer: buffer mapped to a thread. Used for fast allocation (small piece of memory)
+
+	* Span or real span (notation local to this doc): Granularity of TLAB.
+	In this context, it is a contiguous portion of memory partitioned into same size blocks.
+
+	* Treiber stack: Scalable Lock-free Stack Algorithm: allows to get ride of synchro between threads on the same core but not between cores.
+
+
+
+- Used references
+	* Treiber stack:
+	http://people.csail.mit.edu/shanir/publications/Lock_Free.pdf
+

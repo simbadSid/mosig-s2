@@ -1,0 +1,13 @@
+- Canonical form of an LP
+	* maximization
+	* all variables are non negative
+	* all constraints are inequalities of the type “≤”
+
+- Standard form of an LP (same 2 first proper)
+	* All constraints are equations
+--------------------------------------------------------------------
+- Changing constraint:
+	* x <= 0	=> -x >= 0
+	* x in R	=> x = x_Positif + x_Negatif
+- Changing objectif:
+	max(f) = min(-f)

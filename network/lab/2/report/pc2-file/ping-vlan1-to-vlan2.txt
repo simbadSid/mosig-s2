@@ -1,0 +1,7 @@
+[root@ensipc230 ~]# ping 192.168.0.3
+PING 192.168.0.3 (192.168.0.3): 56 data bytes
+^C
+--- 192.168.0.3 ping statistics ---
+9 packets transmitted, 0 packets received, 100.0% packet loss
+[root@ensipc230 ~]# 
+

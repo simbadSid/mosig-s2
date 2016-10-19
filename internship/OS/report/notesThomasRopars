@@ -1,0 +1,44 @@
+
+
+
+
+
+
+Technique d'ecriture pour chaque bloque:
+	- Premier paragraphe est la conclusion;
+
+
+Abstract
+	- Context
+	- problems
+	- Resultat 
+	- Conclusion
+
+
+Introduction
+	- Citer ms-queue:  expliquer que c'est un algo de lock qui a ete dcrit comme bcp plus efficace (citer le papier Thomas Ropars)\\
+	- Les resultat precedents on ete obtenu avec un fake allocator\\
+	- Notre objectif est de voir si cette resultat restent coherent en utilisant le meilleur allocateur choisi par notre etude\\
+
+
+
+
+Context and motivation
+
+
+Materiel and methodes
+	- Parler des algo de lock que l'on test
+	- Grid 5000
+	- My testing platform
+
+Results
+	1-Choosing the most efficient memory allocator
+	2-Custom queue performance using a real allocator
+		- Use the previous choice to compare ms-queue and cc-queue\\
+		- explain if the results of the paper of TR still hold with the chosen allocator
+	3-Experimental limits of the method
+		- Highlight the limits of this method by showing that the choice of the memory allocator is extremely dependent from the hardware 
+		architecture and the Kernel allocation policies
+
+
+

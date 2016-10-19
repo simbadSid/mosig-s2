@@ -1,0 +1,135 @@
+IPMT: IP measurement tools
+
+$Id: README 119 2009-12-07 12:32:54Z heusse $
+
+Network performance measurement tools at the transport level
+-------------------------------------------------- ----------
+
+IPMT is a set of tools to measure performance of networks
+at the transport level  (TCP/IP and UDP/IP).
+
+Udpmt are Tcpmt and client programs, respectively under TCP and UDP.
+They provide every second a report of the obtained throughput, which
+allows a continuous measurement, unlike tools like Netperf,
+iperf or ttcp. They allow therefore not only an evaluation of the average throughput,
+but also continuous monitoring of changes in the throughput in presence of
+changing network conditions, such as intervention of
+competing transmissions, or changes in the transmission conditions
+(eg WLAN).
+
+By default, they continuously transmit to the discard port of the recipient
+machine. This means that under UDP, the flow measured at
+the sender may not match the speed actually transmitted,
+since UDP offers no delivery guarantee.
+
+Udpmt and tcpmt open no TCP control connection, contrary to -
+for example - Netperf. It therefore does not suffer from the problem of TCP connections
+struggling to settle because of a UDP transmissions that started
+earlier.
+
+Tcptarget and udptarget are two programs which allow flow measurement
+at the destination (the only reliable measure in the case of UDP).
+
+Simplified use :
+----------------
+
+tcpmt [-p port] [-s pktsz] [-n pktnb] [-d secs] host
+udpmt [-p port] [-s pktsz] [-n pktnb] [-d secs] host
+
+Where:
+
+- Port is the recipient port number (13000, by default).
+- Pktsz is the size of packets issued (1472 bytes by default for UDP, 1460 for TCP)
+- Pktnb is the number of packets to issue (by default, the program
+   transmit until stopped by Control-C).
+- Secs is the test time in seconds. If secs and pktnb are specified, the
+   test stops when one of the two conditions is checked (number of
+   packets reached, or duration reached).
+- Host is the recipient.
+
+The program makes every second a report displaying :
+
+- The time of issue (in ms since 0h)
+- The number of packets delivered during the interval,
+- The total number of packets delivered,
+- Throughput measured during the interval, in kbit / s
+- The average over the last 10 seconds
+- The average since the beginning.
+
+Tcptarget and udptarget are two programs that allow measurement
+flow at the destination.
+
+tcptarget [-i ms] [-o filename] [-p port]
+udptarget [-i ms] [-o filename] [-p port]
+
+Where:
+
+* Ms is the interval  display of flow in milliseconds. By default,
+   the throughput is displayed every second.
+* Filename is the name of the file where the trace of throughput is recorded.
+   If no file name is specified, the throughput is displayed on the standard output.
+   If a file name is specified, the track is recorded in
+   this file, and the throughput is also displayed on standard output.
+* Port is the port number on which the program starts listening. If
+   none is specified, a port number is selected and displayed.
+
+Once tcptarget / udptarget begin to receive packets, they
+display the bitrate every second. This display is 
+simpler as the display of the sender program (and therefore easier to exploit,
+though less comprehensive), and includes time of receipt in seconds
+(with 3 decimals, so a millisecond precision), and the bitrate in
+kbit / s.
+
+Using TCP / udptarget has a big advantage when you want to
+measure the behavior of concurrent flows sent to the same
+target machine: the moment of arrival is measured on the same machine,
+the results can be matched without having to ensure
+the proper synchronization of transmitting machines.
+
+Advanced use of udpmt:
+---------------
+
+Udpmt has a number of additional options that allow
+use it as a simple traffic generator :
+
+* -i microsecs: miscrosecs is the interval, in microseconds, between
+   transmissions (ie, bursts). By default, the interval is zero, meaning that
+   transmission is continuous.
+* -r rate: specification of th bitrate in Kilobit per second.
+* -B burst specify a burst size burst in number of packets, ie
+   that burst packets will be sent immediately without waiting. This
+   option is obviously of interest only if -i or -r is specified.
+   Default burst size is 1 packet. This can be used for non-saturating 
+   measurements with -e option of udptarget.
+* -b burst: As above, but the size of bursts is expressed in
+   bytes. If the burst size is not a multiple of the packet
+   size, transmission is done until the number of bytes
+   transmitted is either higher or equal to the burst size. The possible surplus
+   is deducted from the following burst. 
+- -t interval: Specifies the value in microseconds of the interval between
+   periodic interruptions used for scheduling transmissions. The
+   default is 500 microseconds, which is below the
+   granularity timer on most systems (usually between one and
+   ten milliseconds). The actual value will be the maximum
+   of the specified interval and the interval of the system timer (1 second / HZ).
+- -T TOS: Specifies the value of Type of Service (ToS fields in the IP header).
+   This value is used by networking equipment implementing quality of
+   service.
+  
+Compilation:
+-------------
+
+In addition to Linux, the program has been successfully compiled
+under Solaris, FreeBSD, MacOS X and Windows / Cygwin, but portability
+is not routinely checked when changes are done. So, your mileage may vary...
+
+The compilation and installation of IPMT is done the traditional way :
+
+Unpack the tarball (tar vxfz ipmt-xxx.tgz),
+
+(cd ipmt-xxx)
+./configure
+make
+make install
+
+Only the last command needs to be run as root.

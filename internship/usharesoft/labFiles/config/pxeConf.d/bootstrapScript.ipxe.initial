@@ -1,0 +1,12 @@
+#!ipxe
+
+dhcp
+
+#params
+#param param value
+#param param2 value2
+#param param3 value3
+
+chain http://192.168.0.1/pxelinux.cfg/default
+#chain http://192.168.0.1:8080/ufws/noAuthentication/pxeScriptResource/bootstrapScript.mainPage.ipxe
+
