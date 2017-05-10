@@ -7,23 +7,13 @@
 
 	- Git website:			gerrit.usharesoft.com
 
-	- Login virtual machines: 	user
-	- Password virtual machines: 	passpass | passpass@12
-
-	- Password onestop:		welcome
 
 Uforge:
 	- Username:			riyane
 	- Email:			sidlakhdar.riyane@gmail.com
-	- Company:			ENSIMAG
-	- Password:			IOIvllmjbk
-					e0xDK2ax8dsq
-	- Creation code:		uforge-online-free
 
 Uforge internal server:
 	- IP:				https://10.1.2.112/uforge/
-	- Login:			root
-	- Password:			uforgedemo
 
 Persistant config of the network:
 	- Config file:			/etc/sysconfig/network-scripts/ifcfg-<interface name>
